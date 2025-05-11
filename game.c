@@ -25,7 +25,8 @@ int map[ALTURA][LARGURA] = {
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 };
 
-void Construir(){
+//lê a matriz e substitui os números por retângulos
+void Construir(){ 
     for (int y = 0; y < ALTURA; y++){
         for (int x = 0; x < LARGURA; x++){
             if (map[y][x] == 1){
@@ -39,9 +40,8 @@ void Construir(){
         }
     }
 }
-
-void pausar(bool paused){  
- 
+//função pause
+void pausar(bool paused){   
     if(paused){
         DrawText("PAUSADO", 100, 200, 20, RED);
     }
@@ -49,7 +49,7 @@ void pausar(bool paused){
         DrawText("RODANDO", 100, 200, 20, DARKBLUE); //somente para teste, dps remover
     }
 }
-
+//converte o arquivo txt do professor para a minha matriz int
 int Conversao(char c) {
     switch (c) {
         case 'w': return 1; // parede
@@ -59,12 +59,11 @@ int Conversao(char c) {
     }
 }
 
-
+//coloca tijolos aleatórios onde não é parede
 void Tijolos(int fase) { //fase é o máximo de tijolos que podem surgir na fase (colocar pra aumentar com as fases) 
     int colocados = 0;  
     int tentativas = 50;
     int limite = fase;
-    //botar limite
 
     while (colocados < limite && tentativas > 0){
         int y = rand() % ALTURA;
@@ -105,7 +104,6 @@ int main (){
      //drawing
     BeginDrawing();
     ClearBackground(WHITE);
-    DrawRectangleLines(0, 0, LARGURA * CELULA, ALTURA * CELULA, GRAY);
     Construir();
     pausar(paused);
     EndDrawing();
