@@ -1,13 +1,14 @@
 #include <raylib.h>
 #include <stdlib.h>
 #include <time.h>
+#include "player.h"
 
 #define CELULA 64
 #define LARGURA 15
 #define ALTURA 15
 #define MAXINIMIGOS 5
 
-int map[ALTURA][LARGURA] = {
+int mapa[ALTURA][LARGURA] = {
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,1,0,1,0,1,0,1,0,1,0,1,0,1},
@@ -29,9 +30,9 @@ int map[ALTURA][LARGURA] = {
 void Construir(){ 
     for (int y = 0; y < ALTURA; y++){
         for (int x = 0; x < LARGURA; x++){
-            if (map[y][x] == 1){
+            if (mapa[y][x] == 1){
                 DrawRectangle(x * CELULA, y * CELULA, CELULA, CELULA, DARKGRAY);
-            } else if (map [y][x] == 0) {
+            } else if (mapa [y][x] == 0) {
                 DrawRectangle(x * CELULA, y * CELULA, CELULA, CELULA, RAYWHITE);
             } else {
                 DrawRectangle(x * CELULA, y * CELULA, CELULA, CELULA, BROWN);
@@ -43,10 +44,10 @@ void Construir(){
 //função pause
 void pausar(bool paused){   
     if(paused){
-        DrawText("PAUSADO", 100, 200, 20, RED);
+        DrawText("PAUSADO", (LARGURA * CELULA)/2 - 165, (LARGURA * CELULA)/2, 80, RED);
     }
     else{
-        DrawText("RODANDO", 100, 200, 20, DARKBLUE); //somente para teste, dps remover
+        //DrawText("RODANDO", (LARGURA * CELULA)/2 - 62, (LARGURA * CELULA)/2 - 32, 20, RED); //somente para teste, dps remover
     }
 }
 //converte o arquivo txt do professor para a minha matriz int
@@ -69,8 +70,8 @@ void Tijolos(int fase) { //fase é o máximo de tijolos que podem surgir na fase
         int y = rand() % ALTURA;
         int x = rand() % LARGURA;
 
-        if (map[y][x] == 0 && !(map[1][1])){
-            map[y][x] = 2; //coloca tijolo
+        if (mapa[y][x] == 0 && !(x == 1 && y == 1)){
+            mapa[y][x] = 2; //coloca tijolo
             colocados++;
         }
         tentativas--;
@@ -78,10 +79,18 @@ void Tijolos(int fase) { //fase é o máximo de tijolos que podem surgir na fase
 }
 
 int main (){
-    int fase = 2; //número de tijolos
 
+    Jogador pedro;
+    Jogador lucas;
+
+    CriarPersonagem(&pedro);
+    CriarPersonagem(&lucas);
+
+    lucas.cor = BLUE;
+
+    int fase = 2; //número de tijolos
     InitWindow(LARGURA * CELULA, ALTURA * CELULA, "Mini Bomberman");
-    SetExitKey(0);
+    //SetExitKey(0);
     SetTargetFPS(60); //verificar ainda quantos fps devem ter
     
     bool paused = false;
@@ -97,19 +106,18 @@ int main (){
         paused = !paused;
 
     
-     //event handling
-
-     //updating positions 
-
-     //drawing
     BeginDrawing();
-    ClearBackground(WHITE);
+    //ClearBackground(WHITE);
+    AtualizarPersonagem(&pedro, mapa);
+    AtualizarPersonagem2(&lucas, mapa);
     Construir();
+    DesenharPersonagem(pedro);
+    DesenharPersonagem(lucas);
     pausar(paused);
+
     EndDrawing();
     }
 
     CloseWindow();
     return 0;
 }
-
