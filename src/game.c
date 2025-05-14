@@ -1,12 +1,14 @@
 #include <raylib.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 
+#define SCREEN_W 64*15
+#define SCREEN_H 1080
 #define CELULA 64
 #define LARGURA 15
 #define ALTURA 15
 #define MAXINIMIGOS 5
-
 
 
 //lê a matriz e substitui os números por retângulos
@@ -19,7 +21,7 @@ void Construir(int *mapa) {
                 DrawRectangle(x * CELULA, y * CELULA, CELULA, CELULA, DARKGRAY);
             } else if (valor == 0) {
                 DrawRectangle(x * CELULA, y * CELULA, CELULA, CELULA, RAYWHITE);
-            } else {
+            } else{
                 DrawRectangle(x * CELULA, y * CELULA, CELULA, CELULA, BROWN);
             }
 

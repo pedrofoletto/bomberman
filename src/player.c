@@ -16,7 +16,9 @@ void CriarPersonagem(Jogador *p) {
 
 void AtualizarPersonagem(Jogador *p, int mapa[ALTURA][LARGURA]) {
     double agora = GetTime(); // tempo atual em segundos
-
+    if (IsKeyDown(KEY_SPACE)) {
+        
+    }
     if (agora - p->ultimoMovimento >= p->cooldown) {
         int novoX = p->x;
         int novoY = p->y;

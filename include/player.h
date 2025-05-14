@@ -13,12 +13,12 @@ typedef struct {
     bool vida;
     int velocidade;
     int x, y;
-    int bombas;
-    int cooldownbomba;
     int tamanho;
     Color cor;
     double ultimoMovimento;
-    double cooldown;
+    double cooldownCaminhar;
+    int cooldownbomba;
+    int bombas;
 } Jogador;
 
 void CriarPersonagem(Jogador *p);
