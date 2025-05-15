@@ -1,4 +1,5 @@
 #include "player.h"
+#include "bomb.h"
 
 void CriarPersonagem(Jogador *p) {
     p->vida = true;
@@ -11,13 +12,16 @@ void CriarPersonagem(Jogador *p) {
     p->cor = RED;
     p->cooldown = 0.375; //ms
     p->ultimoMovimento = 0.0;
+    for (int i = 0; i < MAX_BOMBAS; i++) {
+        p->listaBombas[i].ativa = false;
+    }
 }
 
 
 void AtualizarPersonagem(Jogador *p, int mapa[ALTURA][LARGURA]) {
     double agora = GetTime(); // tempo atual em segundos
     if (IsKeyDown(KEY_SPACE)) {
-        
+        SoltaBomba(p, mapa);
     }
     if (agora - p->ultimoMovimento >= p->cooldown) {
         int novoX = p->x;

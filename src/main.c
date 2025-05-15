@@ -4,6 +4,7 @@
 #include "player.h"
 #include "game.h"
 #include "menu.h"
+#include "bomb.h"
 
 #define SCREEN_W 64*15
 #define SCREEN_H 1080
@@ -118,8 +119,10 @@ int main (){
             case GAMEPLAY:
             {
                 AtualizarPersonagem(&pedro, mapa);
+                AtualizaBombas(&pedro, mapa);
                 Construir(&mapa[0][0]);
                 DesenharPersonagem(pedro);
+                DesenhaBombas(&pedro);
             } break;
             case ENDING:
             {

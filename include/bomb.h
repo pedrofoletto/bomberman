@@ -1,15 +1,15 @@
 // bomb.h
 #ifndef BOMB_H
 #define BOMB_H
+#define TEMPO_EXPLODIR 2
 
 #include "player.h"
 
-typedef struct {
-    int x, y;
-    int time;
-    int tick;
-} bomba;
-
-void SoltaBomba(Jogador *p);
+static void DesenhaExplosao(int linha, int coluna);
+void AtualizaBombas(Jogador *p, int mapa[ALTURA][LARGURA]);
+void SoltaBomba(Jogador *p, int mapa[ALTURA][LARGURA]);
+void DesenhaBombas(const Jogador *p);
+void Explodir(Bomba *b, int mapa[ALTURA][LARGURA], int tamanho);
+static void DestruirBloco(int linha, int coluna, int mapa[ALTURA][LARGURA]);
 
 #endif // BOMB_H
