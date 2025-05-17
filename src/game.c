@@ -13,19 +13,54 @@
 
 //lê a matriz e substitui os números por retângulos
 void Construir(int *mapa) { 
+    Texture2D sheet = LoadTexture("resources/bomb_party_v4.png");
+    const int TILE_ORIG = 16;  // tamanho no PNG
+    Rectangle srcRect = { 0, 0, TILE_ORIG, TILE_ORIG };//define o retangulo de origem
+    Rectangle dstRect = { 0, 0, CELULA, CELULA };//define o retangulo de destino
+    Vector2 origin = { 0, 0 };//define a origem do retangulo
+
     for (int y = 0; y < ALTURA; y++) {
         for (int x = 0; x < LARGURA; x++) {
             int valor = *(mapa + y * LARGURA + x);
 
-            if (valor == 1) {
-                DrawRectangle(x * CELULA, y * CELULA, CELULA, CELULA, DARKGRAY);
-            } else if (valor == 0) {
-                DrawRectangle(x * CELULA, y * CELULA, CELULA, CELULA, RAYWHITE);
-            } else{
-                DrawRectangle(x * CELULA, y * CELULA, CELULA, CELULA, BROWN);
+            // Ajusta o srcRect.x/y conforme o tile desejado no sheet
+            switch (valor) {
+                case 1: // parede
+                    if (((y ==ALTURA-1)||((x>0&&x<LARGURA-1)&&y==0))) {
+                        srcRect.x = 0 * TILE_ORIG;
+                        srcRect.y = 12 * TILE_ORIG;
+                    } else if ( x > 0 && x < LARGURA-1
+                        && y > 0 && y < ALTURA-1     
+                        && x % 2 == 0                
+                        && y % 2 == 0 )              
+                        { 
+                        srcRect.x = 0 * TILE_ORIG;
+                        srcRect.y = 12 * TILE_ORIG;
+                    }else{
+                        srcRect.x = 0 * TILE_ORIG;
+                        srcRect.y = 0 * TILE_ORIG;
+                    }
+                    break;
+                case 0: // chão
+                    srcRect.x = 1 * TILE_ORIG;
+                    srcRect.y = 2 * TILE_ORIG;
+                    break;
+                case 2: // tijolo
+                    srcRect.x = 9 * TILE_ORIG;
+                    srcRect.y = 13 * TILE_ORIG;
+                    break;
+                default:
+                srcRect.x = 1 * TILE_ORIG;
+                srcRect.y = 2 * TILE_ORIG;
             }
 
-            DrawRectangleLines(x * CELULA, y * CELULA, CELULA, CELULA, BLACK);
+            // Posição/destino na tela
+            dstRect.x = x * CELULA;
+            dstRect.y = y * CELULA;
+
+            // Desenha o tile expandido de 16×16 → 64×64
+            DrawTexturePro(sheet, srcRect, dstRect, origin, 0.0f, WHITE);
+
         }
     }
 }

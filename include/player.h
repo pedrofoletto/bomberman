@@ -9,6 +9,8 @@
 #define ALTURA 15
 #define LARGURA 15
 
+typedef enum direction { NORTE = 0, LESTE, SUL, OESTE} direction;
+
 typedef struct {
     int time;
     int x, y;
@@ -18,6 +20,9 @@ typedef struct {
     int tempo_explosao;
     bool explodiu;
     double inicioExplosao;
+    //
+    int frameAtual;
+    float tempoUltimoFrame;
 } Bomba;
 
 typedef struct {
@@ -31,6 +36,12 @@ typedef struct {
     double cooldownCaminhar;
     int cooldownbomba;
     int bombas;
+    //fru fru de animação
+    direction direcao;
+    int frameAtual;
+    double tempoFrame;
+    double tempoUltimoFrame;
+    //
     Bomba listaBombas[MAX_BOMBAS];
 } Jogador;
 

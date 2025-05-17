@@ -5,6 +5,7 @@
 #include "game.h"
 #include "menu.h"
 #include "bomb.h"
+#include "enemy.h"
 
 #define SCREEN_W 64*15
 #define SCREEN_H 1080
@@ -41,7 +42,11 @@ int main (){
     
     int fase=2;
     Jogador pedro;
+    Inimigo inimigo1;
+    Inimigo inimigo2;
     CriarPersonagem(&pedro);
+    CriarInimigo(&inimigo1);
+    CriarInimigo(&inimigo2);
 
     GameScreen currentScreen = LOGO;
 
@@ -120,7 +125,12 @@ int main (){
             {
                 AtualizarPersonagem(&pedro, mapa);
                 AtualizaBombas(&pedro, mapa);
+                AtualizarInimigo( &inimigo1, mapa,&pedro);
+                AtualizarInimigo( &inimigo2, mapa,&pedro);
+                
                 Construir(&mapa[0][0]);
+                DesenharInimigo(inimigo1);
+                DesenharInimigo(inimigo2);
                 DesenharPersonagem(pedro);
                 DesenhaBombas(&pedro);
             } break;
