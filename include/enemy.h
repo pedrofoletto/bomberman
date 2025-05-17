@@ -31,6 +31,6 @@ void CriarInimigo(Inimigo *p);
 
 void AtualizarInimigo(Inimigo *p, int mapa[ALTURA][LARGURA],Jogador *j);
 
-void DesenharInimigo(Inimigo p);
+void DesenharInimigo(Inimigo p,Texture2D sheet);
 
 #endif

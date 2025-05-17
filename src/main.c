@@ -49,7 +49,7 @@ int main (){
     CriarInimigo(&inimigo2);
 
     GameScreen currentScreen = LOGO;
-
+    
 
     InitWindow(SCREEN_W, SCREEN_H, "Mini Bomberman");
     //SetExitKey(0);
@@ -58,7 +58,7 @@ int main (){
     srand(time(NULL));
 
     Tijolos(&mapa[0][0], fase);
-
+    Texture2D sheet = LoadTexture("resources/bomb_party_v4.png");
     while(!WindowShouldClose())
     {
         switch (currentScreen)
@@ -128,10 +128,10 @@ int main (){
                 AtualizarInimigo( &inimigo1, mapa,&pedro);
                 AtualizarInimigo( &inimigo2, mapa,&pedro);
                 
-                Construir(&mapa[0][0]);
-                DesenharInimigo(inimigo1);
-                DesenharInimigo(inimigo2);
-                DesenharPersonagem(pedro);
+                Construir(&mapa[0][0], sheet);
+                DesenharInimigo(inimigo1,sheet);
+                DesenharInimigo(inimigo2,sheet);
+                DesenharPersonagem(pedro,sheet);
                 DesenhaBombas(&pedro);
             } break;
             case ENDING:
@@ -155,5 +155,6 @@ int main (){
         EndDrawing();
     }
     CloseWindow();
+    UnloadTexture(sheet);
     return 0;
 }

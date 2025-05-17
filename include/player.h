@@ -49,6 +49,6 @@ void CriarPersonagem(Jogador *p);
 
 void AtualizarPersonagem(Jogador *p, int mapa[ALTURA][LARGURA]);
 
-void DesenharPersonagem(Jogador p);
+void DesenharPersonagem(Jogador p,Texture2D sheet);
 
 #endif

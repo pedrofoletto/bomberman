@@ -4,6 +4,8 @@
 #define TEMPO_EXPLODIR 2
 
 #include "player.h"
+#include "game.h"
+
 
 static void DesenhaExplosao(int linha, int coluna);
 void AtualizaBombas(Jogador *p, int mapa[ALTURA][LARGURA]);

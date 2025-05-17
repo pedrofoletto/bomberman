@@ -9,9 +9,8 @@ typedef struct infJogo
     int mapa[15][15];
 }infJogo;
 
-
-void Construir(int *mapa);
-void pausar(bool paused);
+void criarInfJogo(infJogo *jogo);
+void Construir(int *mapa,Texture2D sheet);
 int Conversao(char c);
 void Tijolos(int *mapa, int fase);
 

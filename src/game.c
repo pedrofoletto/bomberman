@@ -11,9 +11,14 @@
 #define MAXINIMIGOS 5
 
 
+void criarInfJogo(infJogo *jogo) {
+    jogo->multiplayer = false;
+    jogo->fase = 1;
+}
+
+
 //lê a matriz e substitui os números por retângulos
-void Construir(int *mapa) { 
-    Texture2D sheet = LoadTexture("resources/bomb_party_v4.png");
+void Construir(int *mapa, Texture2D sheet) { 
     const int TILE_ORIG = 16;  // tamanho no PNG
     Rectangle srcRect = { 0, 0, TILE_ORIG, TILE_ORIG };//define o retangulo de origem
     Rectangle dstRect = { 0, 0, CELULA, CELULA };//define o retangulo de destino
@@ -66,14 +71,6 @@ void Construir(int *mapa) {
 }
 
 //função pause
-void pausar(bool paused){   
-    if(paused){
-        DrawText("PAUSADO", (LARGURA * CELULA)/2 - 165, (LARGURA * CELULA)/2, 80, RED);
-    }
-    else{
-        //DrawText("RODANDO", (LARGURA * CELULA)/2 - 62, (LARGURA * CELULA)/2 - 32, 20, RED); //somente para teste, dps remover
-    }
-}
 //converte o arquivo txt do professor para a minha matriz int
 int Conversao(char c) {
     switch (c) {

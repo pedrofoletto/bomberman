@@ -71,8 +71,7 @@ void AtualizarInimigo(Inimigo *p, int mapa[ALTURA][LARGURA],Jogador *j) {
 }
 
 
-void DesenharInimigo(Inimigo p) {
-    Texture2D sheet = LoadTexture("resources/bomb_party_v4.png");
+void DesenharInimigo(Inimigo p, Texture2D sheet) {
     const int TILE_ORIG = 16;
     Rectangle srcRect = { 0, 0, TILE_ORIG, TILE_ORIG };
     Rectangle destRect = { p.x, p.y, CELULA, CELULA };
