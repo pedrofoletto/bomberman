@@ -14,12 +14,6 @@ void CriarInimigo(Inimigo *p) {
     p->tempoFrame = 0.15;
     p->tempoUltimoFrame = GetTime();
 }
-static int busola(int dx, int dy) {
-    if (abs(dx) > abs(dy))
-        return dx > 0 ? LESTE : OESTE;
-    else
-        return dy > 0 ? SUL   : NORTE;
-}
 
 
 void AtualizarInimigo(Inimigo *p, int mapa[ALTURA][LARGURA],Jogador *j) {
@@ -28,8 +22,6 @@ void AtualizarInimigo(Inimigo *p, int mapa[ALTURA][LARGURA],Jogador *j) {
     float delta = GetFrameTime();
     p->tempoUltimoFrame += delta;
 
-    //escolhe direcao aleatoria para o inimigo ir
-    int direcao; // 0: NORTE, 1: LESTE, 2: SUL, 3: OESTE
     if (agora - p->ultimoMovimento >= 1.0) {
         int tentativas = 0;
         bool encontrou = false;

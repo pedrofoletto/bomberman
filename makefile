@@ -10,7 +10,7 @@ SRC = $(wildcard $(SRC_DIR)/*.c)
 
 # Caminho Raylib via Homebrew
 RAYLIB_PATH = /opt/homebrew/opt/raylib
-CFLAGS = -I$(RAYLIB_PATH)/include -I$(INC_DIR) -Wall
+CFLAGS = -I$(RAYLIB_PATH)/include -I$(INC_DIR) -w
 LDFLAGS = -L$(RAYLIB_PATH)/lib -lraylib \
     -framework OpenGL -framework Cocoa -framework IOKit -framework CoreAudio -framework CoreVideo
 

@@ -27,8 +27,6 @@ typedef struct {
     //
 } Inimigo;
 
-static int busola(int dx, int dy);
-
 void CriarInimigo(Inimigo *p);
 
 void AtualizarInimigo(Inimigo *p, int mapa[ALTURA][LARGURA],Jogador *j);
