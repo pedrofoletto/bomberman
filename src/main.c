@@ -39,7 +39,9 @@ int main (){
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
     };
 
-    
+    infJogo jogo;
+    CriarJogo(&jogo);
+
     int fase=2;
     Jogador pedro;
     Inimigo inimigo1;
