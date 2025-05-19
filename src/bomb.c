@@ -20,7 +20,7 @@ void SoltaBomba(Jogador *p, int mapa[ALTURA][LARGURA]) {
         }
     }
 }
-void AtualizaBombas(Jogador *p, int mapa[ALTURA][LARGURA],infJogo *jogo) {
+void AtualizaBombas(Jogador *p, int mapa[ALTURA][LARGURA]) {
     for (int i = 0; i < MAX_BOMBAS; i++) {
         Bomba *b = &p->listaBombas[i];
         if (!b->ativa) continue;
@@ -84,7 +84,7 @@ static void DestruirBloco(int linha, int coluna, int mapa[ALTURA][LARGURA]) {
     if (mapa[linha][coluna] == 2) {
         mapa[linha][coluna] = 0;
         //ve quantos tijolos tem e calcula a probalidade de abrir um power up ou um portal
-        int probabilidadePower = rand() % 100;
+        /*int probabilidadePower = rand() % 100;
         int probabilidadePortal = rand() % fase;
         if (probabilidadePower < 20) {
             // Power-up
@@ -92,7 +92,7 @@ static void DestruirBloco(int linha, int coluna, int mapa[ALTURA][LARGURA]) {
         } else if (probabilidade < 30) {
             // Portal
             mapa[linha][coluna] = 5; // Representa um portal
-        }
+        }*/
         
     }
 }

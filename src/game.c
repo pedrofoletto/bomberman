@@ -11,10 +11,6 @@
 #define MAXINIMIGOS 5
 
 
-void criarInfJogo(infJogo *jogo) {
-    jogo->multiplayer = false;
-    jogo->fase = 1;
-}
 
 
 //lê a matriz e substitui os números por retângulos
