@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/main.dir/src/bomb.c.o CMakeFiles/main.dir/src/enemy.c.o CMakeFiles/main.dir/src/game.c.o CMakeFiles/main.dir/src/level.c.o CMakeFiles/main.dir/src/main.c.o CMakeFiles/main.dir/src/menu.c.o CMakeFiles/main.dir/src/player.c.o -o main   -L/usr/local/lib  -Wl,-rpath,/usr/local/lib -lraylib -lm -lpthread -ldl -lGL -lX11 
