@@ -40,7 +40,6 @@ int main (){
     };
 
     infJogo jogo;
-    CriarJogo(&jogo);
 
     int fase=2;
     Jogador pedro;
