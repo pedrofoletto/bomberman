@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
+#include <stdio.h>
+#include <stdbool.h>
 
 #define SCREEN_W 64*15
 #define SCREEN_H 1080
@@ -67,15 +69,6 @@ void Construir(int *mapa, Texture2D sheet) {
 }
 
 //função pause
-//converte o arquivo txt do professor para a minha matriz int
-int Conversao(char c) {
-    switch (c) {
-        case 'w': return 1; // parede
-        case 'b': return 2; // tijolo
-        case ' ': return 0; // vazio
-        default: return 0;  // trata qualquer outro como vazio
-    }
-}
 
 //coloca tijolos aleatórios onde não é parede
 void Tijolos(int *mapa, int fase) {
@@ -97,4 +90,31 @@ void Tijolos(int *mapa, int fase) {
     }
 }
 
+bool CarregarMapa(const char *nomeArquivo, int mapa[ALTURA][LARGURA]) {
+    printf("[DEBUG] A entrar na funcao CarregarMapaDeArquivo para o ficheiro: %s\n", nomeArquivo);
+
+    FILE *arquivo = fopen(nomeArquivo, "rb");
+    if (arquivo == NULL) {
+        perror("[ERRO] Fopen falhou dentro de CarregarMapaDeArquivo");
+        return false;
+    }
+    printf("[DEBUG] Ficheiro aberto com sucesso.\n");
+
+    // --- PONTO CRÍTICO ---
+    printf("[DEBUG] A preparar para ler o ficheiro com fread()...\n");
+    size_t elementosLidos = fread(mapa, sizeof(int), ALTURA * LARGURA, arquivo);
+    printf("[DEBUG] A chamada a fread() foi concluida.\n");
+    // --- FIM DO PONTO CRÍTICO ---
+
+    fclose(arquivo);
+    printf("[DEBUG] Ficheiro fechado.\n");
+
+    if (elementosLidos != ALTURA * LARGURA) {
+        printf("[ERRO] O numero de elementos lidos (%zu) e diferente do esperado (%d).\n", elementosLidos, ALTURA * LARGURA);
+        return false;
+    }
+
+    printf("[DEBUG] Mapa carregado com sucesso da funcao.\n");
+    return true;
+}
 

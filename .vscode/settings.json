@@ -2,5 +2,6 @@
     "files.associations": {
         "raylib.h": "c",
         "stdlib.h": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "enabled"
 }

@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = -I/home/engenheiro/programas/bomberman/include
+C_INCLUDES = -I/home/engenheiro/bomberman/include -I/home/engenheiro/raylib/src
 
 C_FLAGS = 
 

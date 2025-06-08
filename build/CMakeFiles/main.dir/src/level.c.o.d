@@ -1,3 +1,2 @@
-CMakeFiles/main.dir/src/level.c.o: \
- /home/engenheiro/programas/bomberman/src/level.c \
+CMakeFiles/main.dir/src/level.c.o: /home/engenheiro/bomberman/src/level.c \
  /usr/include/stdc-predef.h

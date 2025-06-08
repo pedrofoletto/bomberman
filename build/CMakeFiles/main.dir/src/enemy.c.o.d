@@ -1,12 +1,9 @@
-CMakeFiles/main.dir/src/enemy.c.o: \
- /home/engenheiro/programas/bomberman/src/enemy.c \
- /usr/include/stdc-predef.h \
- /home/engenheiro/programas/bomberman/include/enemy.h \
- /usr/local/include/raylib.h \
+CMakeFiles/main.dir/src/enemy.c.o: /home/engenheiro/bomberman/src/enemy.c \
+ /usr/include/stdc-predef.h /home/engenheiro/bomberman/include/enemy.h \
+ /home/engenheiro/raylib/src/raylib.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h \
- /home/engenheiro/programas/bomberman/include/player.h \
- /usr/include/stdlib.h \
+ /home/engenheiro/bomberman/include/player.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \

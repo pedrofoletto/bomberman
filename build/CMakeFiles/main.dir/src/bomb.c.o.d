@@ -1,12 +1,10 @@
-CMakeFiles/main.dir/src/bomb.c.o: \
- /home/engenheiro/programas/bomberman/src/bomb.c \
- /usr/include/stdc-predef.h \
- /home/engenheiro/programas/bomberman/include/bomb.h \
- /home/engenheiro/programas/bomberman/include/player.h \
- /usr/local/include/raylib.h \
+CMakeFiles/main.dir/src/bomb.c.o: /home/engenheiro/bomberman/src/bomb.c \
+ /usr/include/stdc-predef.h /home/engenheiro/bomberman/include/bomb.h \
+ /home/engenheiro/bomberman/include/player.h \
+ /home/engenheiro/raylib/src/raylib.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h \
- /home/engenheiro/programas/bomberman/include/game.h /usr/include/time.h \
+ /home/engenheiro/bomberman/include/game.h /usr/include/time.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/bits/timesize.h \

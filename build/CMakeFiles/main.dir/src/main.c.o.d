@@ -1,6 +1,5 @@
-CMakeFiles/main.dir/src/main.c.o: \
- /home/engenheiro/programas/bomberman/src/main.c \
- /usr/include/stdc-predef.h /usr/local/include/raylib.h \
+CMakeFiles/main.dir/src/main.c.o: /home/engenheiro/bomberman/src/main.c \
+ /usr/include/stdc-predef.h /home/engenheiro/raylib/src/raylib.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
@@ -47,10 +46,10 @@ CMakeFiles/main.dir/src/main.c.o: \
  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
- /home/engenheiro/programas/bomberman/include/player.h \
- /home/engenheiro/programas/bomberman/include/game.h \
- /home/engenheiro/programas/bomberman/include/menu.h \
- /home/engenheiro/programas/bomberman/include/bomb.h \
- /home/engenheiro/programas/bomberman/include/player.h \
- /home/engenheiro/programas/bomberman/include/game.h \
- /home/engenheiro/programas/bomberman/include/enemy.h
+ /home/engenheiro/bomberman/include/player.h \
+ /home/engenheiro/bomberman/include/game.h \
+ /home/engenheiro/bomberman/include/menu.h \
+ /home/engenheiro/bomberman/include/bomb.h \
+ /home/engenheiro/bomberman/include/player.h \
+ /home/engenheiro/bomberman/include/game.h \
+ /home/engenheiro/bomberman/include/enemy.h
