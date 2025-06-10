@@ -86,7 +86,7 @@ int main (){
             case OPCOES:{
                 if (IsKeyPressed(KEY_L))
                 {
-                    if (CarregarMapa("maps/custom_map.bin", mapa)){
+                    if (CarregarMapa("../maps/custom_map.bin", mapa)){
                         CriarPersonagem(&pedro);
                         CriarInimigo(&inimigo1);
                         CriarInimigo(&inimigo2);

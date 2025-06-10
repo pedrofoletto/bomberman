@@ -1,9 +1,12 @@
-CMakeFiles/main.dir/src/enemy.c.o: /home/engenheiro/bomberman/src/enemy.c \
- /usr/include/stdc-predef.h /home/engenheiro/bomberman/include/enemy.h \
- /home/engenheiro/raylib/src/raylib.h \
- /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
- /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h \
- /home/engenheiro/bomberman/include/player.h /usr/include/stdlib.h \
+CMakeFiles/main.dir/src/enemy.c.o: \
+ /home/pedropop/Documentos/bomberman/src/enemy.c \
+ /usr/include/stdc-predef.h \
+ /home/pedropop/Documentos/bomberman/include/enemy.h \
+ /usr/local/include/raylib.h \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h \
+ /home/pedropop/Documentos/bomberman/include/player.h \
+ /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
@@ -12,7 +15,7 @@ CMakeFiles/main.dir/src/enemy.c.o: /home/engenheiro/bomberman/src/enemy.c \
  /usr/include/x86_64-linux-gnu/bits/long-double.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
