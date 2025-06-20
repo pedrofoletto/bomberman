@@ -13,7 +13,17 @@
 #define MAXINIMIGOS 5
 
 
+//escreve na tela o score e a fase atual
+void EscreverInfo(int fase, int score) {
+    // Posição Y logo abaixo do mapa do jogo (960px) + um espaço
+    int y_inicial = 960; // <<< MUDE AQUI para um teste
 
+    // Desenha o texto da Fase
+    DrawText(TextFormat("Fase: %08i", fase), 0, y_inicial, 20, BLUE);
+
+    // Desenha o texto do Score um pouco abaixo do texto da Fase
+    DrawText(TextFormat("Score: %08i", score), 0, y_inicial + 20, 20, RED);
+}
 
 //lê a matriz e substitui os números por retângulos
 void Construir(int *mapa, Texture2D sheet) { 
@@ -51,6 +61,14 @@ void Construir(int *mapa, Texture2D sheet) {
                 case 2: // tijolo
                     srcRect.x = 9 * TILE_ORIG;
                     srcRect.y = 13 * TILE_ORIG;
+                    break;
+                case 3: // power-up
+                    srcRect.x = 15 * TILE_ORIG;
+                    srcRect.y = 16 * TILE_ORIG;
+                    break;
+                case 4: // portal
+                    srcRect.x = 14 * TILE_ORIG;
+                    srcRect.y = 16 * TILE_ORIG;
                     break;
                 default:
                 srcRect.x = 1 * TILE_ORIG;

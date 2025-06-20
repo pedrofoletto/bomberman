@@ -27,6 +27,8 @@ void AtualizaBombas(Jogador *p, int mapa[ALTURA][LARGURA]) {
 
         if ((GetTime()-b->time)>=TEMPO_EXPLODIR) {
             Explodir(b, mapa, p->tamanho);
+            //aumenta o score do personagem baseado no numero de explsoes
+            p->score += Explodir(b, mapa, p->tamanho);
             p->bombas++;
             b->ativa = false;
             mapa[b->y][b->x] = 0;
@@ -47,8 +49,8 @@ void DesenhaBombas(const Jogador *p) {
     }
 }
 
-void Explodir(Bomba *b, int mapa[ALTURA][LARGURA], int tamanho) {
-
+int Explodir(Bomba *b, int mapa[ALTURA][LARGURA], int tamanho) {
+    int num_explosoes = 0;
     DesenhaExplosao(b->y, b->x);
 
     for (int dir = 0; dir < 4; dir++) {//direções
@@ -70,6 +72,8 @@ void Explodir(Bomba *b, int mapa[ALTURA][LARGURA], int tamanho) {
             }
 
             if (mapa[verificandoy][verificandox] == 2){//se for tijolo
+                //aumenta o score do jogador
+                num_explosoes++;
                 DestruirBloco(verificandoy, verificandox, mapa);
                 break;
             } 
@@ -77,22 +81,41 @@ void Explodir(Bomba *b, int mapa[ALTURA][LARGURA], int tamanho) {
             DesenhaExplosao(verificandoy, verificandox);
         }
     }
+    return num_explosoes;
     b->ativa = false;//desativa a bomba
 }
 
 static void DestruirBloco(int linha, int coluna, int mapa[ALTURA][LARGURA]) {
+    // Verifica se a posição contém um bloco destrutível (valor 2)
     if (mapa[linha][coluna] == 2) {
-        mapa[linha][coluna] = 0;
-        //ve quantos tijolos tem e calcula a probalidade de abrir um power up ou um portal
-        /*int probabilidadePower = rand() % 100;
-        int probabilidadePortal = rand() % fase;
-        if (probabilidadePower < 20) {
-            // Power-up
-            mapa[linha][coluna] = 4; // Representa um power-up
-        } else if (probabilidade < 30) {
-            // Portal
-            mapa[linha][coluna] = 5; // Representa um portal
-        }*/
         
+        // Verifica se este é o último bloco restante no mapa
+        if (ContarBlocos(mapa) == 1) {
+            // Se for o último bloco, cria um portal
+            mapa[linha][coluna] = 4; // Representa um portal
+        } else {
+            // Se houver mais blocos, primeiro define o espaço como vazio
+            mapa[linha][coluna] = 0;
+
+            // Em seguida, calcula a probabilidade de gerar um power-up
+            int probabilidadePower = rand() % 100; // Gera um número entre 0 e 99
+
+            if (probabilidadePower < 20) { // 20% de chance
+                // Cria um power-up no lugar do bloco destruído
+                mapa[linha][coluna] = 3; // Representa um power-up
+            }
+        }
     }
+}
+
+static int ContarBlocos(int mapa[ALTURA][LARGURA]) {
+    int count = 0;
+    for (int i = 0; i < ALTURA; i++) {
+        for (int j = 0; j < LARGURA; j++) {
+            if (mapa[i][j] == 2) { // Assuming 2 represents destructible blocks
+                count++;
+            }
+        }
+    }
+    return count;
 }

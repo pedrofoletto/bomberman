@@ -6,6 +6,7 @@
 #include "menu.h"
 #include "bomb.h"
 #include "enemy.h"
+#include "level.h"
 
 #define SCREEN_W 64*15
 #define SCREEN_H 1080
@@ -16,7 +17,7 @@
 
 
 
-typedef enum GameScreen { LOGO = 0, TITLE, MENU, OPCOES, GAMEPLAY, ENDING, RESUME } GameScreen;
+typedef enum GameScreen { LOGO = 0, TITLE, MENU, OPCOES, GAMEPLAY,LEVEL_COMPLETE ,ENDING, RESUME } GameScreen;
 
 
 int main (){
@@ -41,7 +42,16 @@ int main (){
 
     infJogo jogo;
 
+    jogo.multiplayer = false;
     int fase=2;
+    jogo.fase = fase;
+    for (int i = 0; i < ALTURA; i++) {
+        for (int j = 0; j < LARGURA; j++) {
+            jogo.mapa[i][j] = mapa[i][j];
+        }
+    }
+
+    // Inicializa o jogador e os inimigos
     Jogador pedro;
     Inimigo inimigo1;
     Inimigo inimigo2;
@@ -101,7 +111,17 @@ int main (){
             case GAMEPLAY:
             {
                 if (IsKeyPressed(KEY_ESCAPE)) currentScreen = RESUME;
+
             } break;
+            case LEVEL_COMPLETE:
+            {
+                if (IsKeyPressed(KEY_ENTER)) 
+                {
+                    SetupLevel(&pedro, &inimigo1, &inimigo2, mapa, fase);
+                    currentScreen = GAMEPLAY;
+                }
+            } break;
+
             case ENDING:
             {
                 if (IsKeyPressed(KEY_ENTER)) currentScreen = TITLE;
@@ -151,16 +171,34 @@ int main (){
             } break;
             case GAMEPLAY:
             {
-                AtualizarPersonagem(&pedro, mapa);
+                int playerStatus = AtualizarPersonagem(&pedro, mapa);
                 AtualizaBombas(&pedro, mapa);
                 AtualizarInimigo( &inimigo1, mapa,&pedro);
                 AtualizarInimigo( &inimigo2, mapa,&pedro);
-                
+                EscreverInfo(fase, pedro.score);
                 Construir(&mapa[0][0], sheet);
                 DesenharInimigo(inimigo1,sheet);
                 DesenharInimigo(inimigo2,sheet);
                 DesenharPersonagem(pedro,sheet);
                 DesenhaBombas(&pedro);
+                
+                if (playerStatus==1)
+                {
+                    currentScreen = LEVEL_COMPLETE;//terminou o nível
+                    playerStatus=0;
+                }
+                
+            } break;
+            case LEVEL_COMPLETE:
+            {
+                const char *l1 = "LEVEL COMPLETE!";
+                const char *l2 = "PRESS ENTER to CONTINUE";
+                const char *l3 = "PRESS ESC to EXIT";
+                DrawRectangle(0, 0, SCREEN_W, SCREEN_H, PURPLE);
+                DrawText(l1, CENTER_X(l1, 40), SCREEN_H/2 - 30, 40, DARKPURPLE);
+                DrawText(l2, CENTER_X(l2, 20), SCREEN_H/2 + 30, 20, DARKPURPLE);
+                DrawText(l2, CENTER_X(l2, 20), SCREEN_H/2 + 30, 20, DARKPURPLE);
+                fase++;
             } break;
             case ENDING:
             {

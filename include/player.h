@@ -36,6 +36,7 @@ typedef struct {
     double cooldownCaminhar;
     int cooldownbomba;
     int bombas;
+    int score;
     //fru fru de animação
     direction direcao;
     int frameAtual;
@@ -47,7 +48,7 @@ typedef struct {
 
 void CriarPersonagem(Jogador *p);
 
-void AtualizarPersonagem(Jogador *p, int mapa[ALTURA][LARGURA]);
+int AtualizarPersonagem(Jogador *p, int mapa[ALTURA][LARGURA]);
 
 void DesenharPersonagem(Jogador p,Texture2D sheet);
 

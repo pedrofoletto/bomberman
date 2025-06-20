@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
+
 
 #define ALTURA 15
 #define LARGURA 15
 
 //converte o arquivo txt do professor para a minha matriz int
 int Conversao(char c) {
-    switch (c) {
+    switch (tolower(c)) {
         case 'w': return 1; // parede
         case 'b': return 2; // tijolo
         case ' ': return 0; // vazio

@@ -10,7 +10,7 @@ typedef struct infJogo
     int fase;
     int mapa[15][15];
 }infJogo;
-
+void EscreverInfo(int fase, int score);
 void Construir(int *mapa, Texture2D sheet);
 int Conversao(char c);
 void Tijolos(int *mapa, int fase);

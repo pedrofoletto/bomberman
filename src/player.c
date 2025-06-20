@@ -13,6 +13,7 @@ void CriarPersonagem(Jogador *p) {
     p->cooldown = 0.375; //ms
     p->ultimoMovimento = 0.0;
     p->direcao = NORTE;
+    p->score = 0;
 
 
     p->frameAtual = 0;
@@ -26,7 +27,7 @@ void CriarPersonagem(Jogador *p) {
 }
 
 
-void AtualizarPersonagem(Jogador *p, int mapa[ALTURA][LARGURA]) {
+int AtualizarPersonagem(Jogador *p, int mapa[ALTURA][LARGURA]) {
     bool seMovendo = false;
     double agora = GetTime();
     float delta = GetFrameTime();
@@ -68,7 +69,22 @@ void AtualizarPersonagem(Jogador *p, int mapa[ALTURA][LARGURA]) {
                 p->x = novoX;
                 p->y = novoY;
                 p->ultimoMovimento = agora;
+            }else if (mapa[linha][coluna] == 3)//power up
+            {
+                p->bombas++;
+                mapa[linha][coluna] = 0; // remove o power up do mapa
+                p->x = novoX;
+                p->y = novoY;
+                p->ultimoMovimento = agora;
+
+            }else if (mapa[linha][coluna] == 4)//portal
+            {
+                p->x = novoX;
+                p->y = novoY;
+                p->ultimoMovimento = agora;
+                return 1; // indica que o jogador encontrou o portal
             }
+            
         }
     }
     if ((p->tempoUltimoFrame >= p->tempoFrame)&&seMovendo) {
@@ -76,7 +92,7 @@ void AtualizarPersonagem(Jogador *p, int mapa[ALTURA][LARGURA]) {
         if (p->frameAtual > 2) p->frameAtual = 0; // 3 frames: 0, 1, 2
         p->tempoUltimoFrame = 0.0f;
     }
-
+    return 0; // indica que o jogador não encontrou o portal
 }
 
 
