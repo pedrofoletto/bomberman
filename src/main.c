@@ -57,6 +57,10 @@ int main (){
     CriarInimigo(&inimigo1);
     CriarInimigo(&inimigo2);
 
+    for (int i = 0; i < MAX_BOMBAS; i++) {
+        pedro.listaBombas[i].state = BOMB_STATE_INACTIVE;
+    }
+
     GameScreen currentScreen = LOGO;
     
     InitWindow(SCREEN_W, SCREEN_H, "Mini Bomberman");
@@ -113,7 +117,7 @@ int main (){
 
             case GAMEPLAY:
             {
-                if (IsKeyPressed(KEY_P)) { // <<< DEBUG 2: Imprime a fase atual a qualquer momento
+                if (IsKeyPressed(KEY_P)) {
                     printf("DEBUG: Estou na FASE %d\n", fase);
                 }
                 
@@ -121,13 +125,17 @@ int main (){
                 
                 int playerStatus = AtualizarPersonagem(&pedro, mapa);
                 
+                AtualizaBombas(&pedro, mapa); 
+
+                AtualizarInimigo(&inimigo1, mapa, &pedro);
+                AtualizarInimigo(&inimigo2, mapa, &pedro);
+                
                 if (playerStatus==1)
                 {
                     printf(">>> Nivel completo! Status do jogador: %d. Mudando para a tela LEVEL_COMPLETE.\n", playerStatus);
                     currentScreen = LEVEL_COMPLETE;
                     playerStatus=0;
                 }
-                
             } break;
             case LEVEL_COMPLETE:
             {
@@ -203,7 +211,7 @@ int main (){
                 DesenharInimigo(inimigo1,sheet);
                 DesenharInimigo(inimigo2,sheet);
                 DesenharPersonagem(pedro,sheet);
-                DesenhaBombas(&pedro);
+                DesenhaBombas(&pedro, sheet, mapa);
             } break;
             case LEVEL_COMPLETE: 
             {

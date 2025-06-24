@@ -6,7 +6,10 @@ CMakeFiles/main.dir/src/level.c.o: \
  /usr/local/include/raylib.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h \
- /home/pedropop/Documentos/bomberman/include/bomb.h /usr/include/stdlib.h \
+ /home/pedropop/Documentos/bomberman/include/bomb.h \
+ /home/pedropop/Documentos/bomberman/include/game.h \
+ /home/pedropop/Documentos/bomberman/include/enemy.h \
+ /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
@@ -46,6 +49,4 @@ CMakeFiles/main.dir/src/level.c.o: \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /home/pedropop/Documentos/bomberman/include/game.h \
- /home/pedropop/Documentos/bomberman/include/enemy.h \
  /home/pedropop/Documentos/bomberman/include/game.h

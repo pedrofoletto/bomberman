@@ -11,19 +11,30 @@
 
 typedef enum direction { NORTE = 0, LESTE, SUL, OESTE} direction;
 
+typedef enum {
+    BOMB_STATE_TICKING,
+    BOMB_STATE_EXPLODING,
+    BOMB_STATE_INACTIVE
+} BombaState;
+
 typedef struct {
-    int time;
+    BombaState state; // O estado atual da bomba
+    double time; 
     int x, y;
-    int tick;
     int range;
-    bool ativa;
-    int tempo_explosao;
-    bool explodiu;
-    double inicioExplosao;
-    //
+    
+    //alcance explosao 
+    int reachUp, reachDown, reachLeft, reachRight;
+
+    // Animação da bomba
     int frameAtual;
-    float tempoUltimoFrame;
+    double tempoFrame;
+    double tempoUltimoFrame;
+
+    // Animação da explosão
+    double tempoVisivelExplosao; // Quanto tempo a explosão fica na tela
 } Bomba;
+
 
 typedef struct {
     bool vida;

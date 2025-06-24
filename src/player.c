@@ -22,7 +22,7 @@ void CriarPersonagem(Jogador *p) {
 
     
     for (int i = 0; i < MAX_BOMBAS; i++) {
-        p->listaBombas[i].ativa = false;
+        p->listaBombas[i].state = BOMB_STATE_INACTIVE;
     }
 }
 
