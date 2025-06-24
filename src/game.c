@@ -92,7 +92,7 @@ void Construir(int *mapa, Texture2D sheet) {
 void Tijolos(int *mapa, int fase) {
     int colocados = 0;  
     int tentativas = 50;
-    int limite = fase;
+    int limite = fase + 1;
 
     while (colocados < limite && tentativas > 0){
         int y = rand() % ALTURA;

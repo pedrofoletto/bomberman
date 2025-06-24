@@ -7,6 +7,7 @@
 #include "bomb.h"
 #include "enemy.h"
 #include "level.h"
+#include <stdio.h> // Para usar o printf
 
 #define SCREEN_W 64*15
 #define SCREEN_H 1080
@@ -14,8 +15,6 @@
 #define LARGURA 15
 #define ALTURA 15
 #define MAXINIMIGOS 5
-
-
 
 typedef enum GameScreen { LOGO = 0, TITLE, MENU, OPCOES, GAMEPLAY,LEVEL_COMPLETE ,ENDING, RESUME } GameScreen;
 
@@ -43,7 +42,7 @@ int main (){
     infJogo jogo;
 
     jogo.multiplayer = false;
-    int fase=2;
+    int fase = 1; 
     jogo.fase = fase;
     for (int i = 0; i < ALTURA; i++) {
         for (int j = 0; j < LARGURA; j++) {
@@ -51,7 +50,6 @@ int main (){
         }
     }
 
-    // Inicializa o jogador e os inimigos
     Jogador pedro;
     Inimigo inimigo1;
     Inimigo inimigo2;
@@ -61,17 +59,22 @@ int main (){
 
     GameScreen currentScreen = LOGO;
     
-
     InitWindow(SCREEN_W, SCREEN_H, "Mini Bomberman");
-    //SetExitKey(0);
-    SetTargetFPS(60); //verificar ainda quantos fps devem ter
+    SetTargetFPS(60); 
     
     srand(time(NULL));
 
     Tijolos(&mapa[0][0], fase);
+    
+    // <<< DEBUG 1: Imprime o valor inicial da fase
+    printf("================================\n");
+    printf("JOGO INICIADO. FASE INICIAL: %d\n", fase);
+    printf("================================\n");
+    
     Texture2D sheet = LoadTexture("resources/bomb_party_v4.png");
     while(!WindowShouldClose())
     {
+        // --- LÓGICA DO JOGO ---
         switch (currentScreen)
         {
             case LOGO:
@@ -110,15 +113,36 @@ int main (){
 
             case GAMEPLAY:
             {
+                if (IsKeyPressed(KEY_P)) { // <<< DEBUG 2: Imprime a fase atual a qualquer momento
+                    printf("DEBUG: Estou na FASE %d\n", fase);
+                }
+                
                 if (IsKeyPressed(KEY_ESCAPE)) currentScreen = RESUME;
-
+                
+                int playerStatus = AtualizarPersonagem(&pedro, mapa);
+                
+                if (playerStatus==1)
+                {
+                    printf(">>> Nivel completo! Status do jogador: %d. Mudando para a tela LEVEL_COMPLETE.\n", playerStatus);
+                    currentScreen = LEVEL_COMPLETE;
+                    playerStatus=0;
+                }
+                
             } break;
             case LEVEL_COMPLETE:
             {
                 if (IsKeyPressed(KEY_ENTER)) 
                 {
+                    
+                    printf("--- Transicao de Nivel ---\n");
+                    printf("   Fase ANTES do incremento: %d\n", fase);
+                    fase++;
+                    printf("   Fase DEPOIS do incremento: %d\n", fase);
+                    
                     SetupLevel(&pedro, &inimigo1, &inimigo2, mapa, fase);
                     currentScreen = GAMEPLAY;
+                    
+                    printf("--- Novo nivel configurado. Voltando ao GAMEPLAY. ---\n");
                 }
             } break;
 
@@ -135,6 +159,7 @@ int main (){
 
         #define CENTER_X(txt, size) (SCREEN_W/2 - MeasureText(txt, size)/2)
 
+        
         BeginDrawing();
         ClearBackground(RAYWHITE);
         
@@ -155,11 +180,10 @@ int main (){
             } break;
             case MENU:
             {
-            DrawRectangle(0, 0, SCREEN_W, SCREEN_H, SKYBLUE);
-            DrawText("MAIN MENU", CENTER_X("MAIN MENU", 40), GetScreenHeight()/4, 40, DARKBLUE);
-            //MenuOption ShowMenu();
+                DrawRectangle(0, 0, SCREEN_W, SCREEN_H, SKYBLUE);
+                DrawText("MAIN MENU", CENTER_X("MAIN MENU", 40), GetScreenHeight()/4, 40, DARKBLUE);
             } break;
-            case OPCOES:{
+            case OPCOES:{ 
                 DrawRectangle(0, 0, SCREEN_W, SCREEN_H, DARKGRAY);
                 const char *t1 = "Opcoes";
                 const char *t2 = "Pressione [L] para Carregar Mapa Personalizado";
@@ -171,7 +195,6 @@ int main (){
             } break;
             case GAMEPLAY:
             {
-                int playerStatus = AtualizarPersonagem(&pedro, mapa);
                 AtualizaBombas(&pedro, mapa);
                 AtualizarInimigo( &inimigo1, mapa,&pedro);
                 AtualizarInimigo( &inimigo2, mapa,&pedro);
@@ -181,15 +204,8 @@ int main (){
                 DesenharInimigo(inimigo2,sheet);
                 DesenharPersonagem(pedro,sheet);
                 DesenhaBombas(&pedro);
-                
-                if (playerStatus==1)
-                {
-                    currentScreen = LEVEL_COMPLETE;//terminou o nível
-                    playerStatus=0;
-                }
-                
             } break;
-            case LEVEL_COMPLETE:
+            case LEVEL_COMPLETE: 
             {
                 const char *l1 = "LEVEL COMPLETE!";
                 const char *l2 = "PRESS ENTER to CONTINUE";
@@ -197,8 +213,7 @@ int main (){
                 DrawRectangle(0, 0, SCREEN_W, SCREEN_H, PURPLE);
                 DrawText(l1, CENTER_X(l1, 40), SCREEN_H/2 - 30, 40, DARKPURPLE);
                 DrawText(l2, CENTER_X(l2, 20), SCREEN_H/2 + 30, 20, DARKPURPLE);
-                DrawText(l2, CENTER_X(l2, 20), SCREEN_H/2 + 30, 20, DARKPURPLE);
-                fase++;
+                DrawText(l3, CENTER_X(l3, 20), SCREEN_H/2 + 60, 20, DARKPURPLE);
             } break;
             case ENDING:
             {
