@@ -17,8 +17,12 @@
 #define ALTURA 15
 #define MAXINIMIGOS 5
 
-typedef enum GameScreen { MENU = 0, OPCOES, GAMEPLAY,LEVEL_COMPLETE ,ENDING, RESUME } GameScreen;
+typedef enum GameScreen { MENU = 0, OPCOES, GAMEPLAY,LEVEL_COMPLETE ,ENDING, RESUME, GAME_OVER } GameScreen;
 
+void ReiniciarJogo(int *fase, Jogador *jogador, Inimigo *inimigo1, Inimigo *inimigo2, int mapa[ALTURA][LARGURA]) {
+    *fase = 1; // Usamos ponteiro para alterar a variável 'fase' original
+    SetupLevel(jogador, inimigo1, inimigo2, mapa, *fase);
+}
 
 int main (){
 
@@ -58,6 +62,7 @@ int main (){
 
     if (!CarregarProgresso(&pedro, &fase)) {
     fase = 1;
+    pedro.score = 0;
     }
     
     CriarInimigo(&inimigo1);
@@ -75,11 +80,7 @@ int main (){
     srand(time(NULL));
 
     Tijolos(&mapa[0][0], fase);
-    
-    // valor da fase
-    printf("================================\n");
-    printf("JOGO INICIADO. FASE INICIAL: %d\n", fase);
-    printf("================================\n");
+
     
     Texture2D sheet = LoadTexture("resources/bomb_party_v4.png");
     while(!WindowShouldClose())
@@ -126,19 +127,26 @@ int main (){
                 if (IsKeyPressed(KEY_ENTER)) 
                 {
                     
-                    printf("--- Transicao de Nivel ---\n");
-                    printf("   Fase ANTES do incremento: %d\n", fase);
+                    printf("fase antes %d\n", fase);
                     fase++;
                     SalvarProgresso(&pedro, fase);
-                    printf("   Fase DEPOIS do incremento: %d\n", fase);
+                    printf("fase depois %d\n", fase);
                     
                     SetupLevel(&pedro, &inimigo1, &inimigo2, mapa, fase);
                     currentScreen = GAMEPLAY;
-                    
-                    printf("--- Novo nivel configurado. Voltando ao GAMEPLAY. ---\n");
                 }
             } break;
-
+            
+            case GAME_OVER:
+            {
+                if (IsKeyPressed(KEY_ENTER))
+                {   
+                    fase = 1;
+                    pedro.score = 0;
+                    ReiniciarJogo(&fase, &pedro, &inimigo1, &inimigo2, mapa);
+                    currentScreen = GAMEPLAY;
+                }
+            } break;
             case ENDING:
             {
                 if (IsKeyPressed(KEY_ENTER)) currentScreen = MENU;
@@ -178,7 +186,15 @@ int main (){
                 AtualizaBombas(&pedro, mapa);
                 AtualizarInimigo( &inimigo1, mapa,&pedro);
                 AtualizarInimigo( &inimigo2, mapa,&pedro);
-                EscreverInfo(fase, pedro.score);
+
+                int alcance_atual = pedro.listaBombas[0].range;
+
+                if (alcance_atual <= 0) { 
+                    alcance_atual = 2; 
+                }
+
+                EscreverInfo(fase, pedro.score, pedro.bombas, alcance_atual);
+
                 Construir(&mapa[0][0], sheet);
                 DesenharInimigo(inimigo1,sheet);
                 DesenharInimigo(inimigo2,sheet);
@@ -201,6 +217,19 @@ int main (){
                 DrawText(l1, CENTER_X(l1, 40), SCREEN_H/2 - 30, 40, DARKPURPLE);
                 DrawText(l2, CENTER_X(l2, 20), SCREEN_H/2 + 30, 20, DARKPURPLE);
                 DrawText(l3, CENTER_X(l3, 20), SCREEN_H/2 + 60, 20, DARKPURPLE);
+            } break;
+            case GAME_OVER:
+            {
+                const int TAMANHO_TITULO = 40;
+                const int TAMANHO_SUBTITULO = 20;
+                const int ESPACAMENTO_VERTICAL = 30;
+
+                const char *go1 = "GAME OVER";
+                const char *go2 = "PRESS ENTER to RESTART";
+
+                DrawRectangle(0, 0, SCREEN_W, SCREEN_H, BLACK);
+                DrawText(go1, CENTER_X(go1, TAMANHO_TITULO), SCREEN_H/2 - ESPACAMENTO_VERTICAL, TAMANHO_TITULO, RED);
+                DrawText(go2, CENTER_X(go2, TAMANHO_SUBTITULO), SCREEN_H/2 + ESPACAMENTO_VERTICAL, TAMANHO_SUBTITULO, WHITE);
             } break;
             case ENDING:
             {

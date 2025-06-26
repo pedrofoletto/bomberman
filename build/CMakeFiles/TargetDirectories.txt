@@ -1,0 +1,3 @@
+/home/pedropop/Documentos/bomberman/build/CMakeFiles/main.dir
+/home/pedropop/Documentos/bomberman/build/CMakeFiles/edit_cache.dir
+/home/pedropop/Documentos/bomberman/build/CMakeFiles/rebuild_cache.dir

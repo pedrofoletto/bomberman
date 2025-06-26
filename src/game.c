@@ -14,15 +14,15 @@
 
 
 //escreve na tela o score e a fase atual
-void EscreverInfo(int fase, int score) {
-    // Posição Y logo abaixo do mapa do jogo (960px) + um espaço
-    int y_inicial = 960; // <<< MUDE AQUI para um teste
+void EscreverInfo(int fase, int score, int bombas, int alcance) {
 
-    // Desenha o texto da Fase
-    DrawText(TextFormat("Fase: %08i", fase), 0, y_inicial, 20, BLUE);
+    int y_inicial = 960; 
+    int espaco = 20;
 
-    // Desenha o texto do Score um pouco abaixo do texto da Fase
-    DrawText(TextFormat("Score: %08i", score), 0, y_inicial + 20, 20, RED);
+    DrawText(TextFormat("Fase: %08d", fase), 0, y_inicial, espaco, BLUE);
+    DrawText(TextFormat("Score: %08d", score), 0, y_inicial + espaco, espaco, RED);
+    DrawText(TextFormat("Alcance: %d", alcance), 0, y_inicial, 5*espaco, BLUE);
+    DrawText(TextFormat("Score: %08i", score), 0, y_inicial + espaco, 5*espaco, BLUE);
 }
 
 //lê a matriz e substitui os números por retângulos

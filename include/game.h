@@ -1,4 +1,3 @@
-// menu.h
 #ifndef GAME_H
 #define GAME_H
 #define ALTURA 15
@@ -10,7 +9,7 @@ typedef struct infJogo
     int fase;
     int mapa[15][15];
 }infJogo;
-void EscreverInfo(int fase, int score);
+void EscreverInfo(int fase, int score, int bombas, int alcance);
 void Construir(int *mapa, Texture2D sheet);
 int Conversao(char c);
 void Tijolos(int *mapa, int fase);

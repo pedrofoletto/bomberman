@@ -13,8 +13,7 @@ void CriarPersonagem(Jogador *p) {
     p->cooldown = 0.375; //ms
     p->ultimoMovimento = 0.0;
     p->direcao = NORTE;
-    p->score = 0;
-
+    //p->score = 0; estou testando pra ver se funciona o save
 
     p->frameAtual = 0;
     p->tempoFrame = 0.15;
