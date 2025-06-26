@@ -61,7 +61,7 @@ int AtualizarPersonagem(Jogador *p, int mapa[ALTURA][LARGURA]) {
         int coluna = novoX / p->tamanho;
         int linha = novoY / p->tamanho;
 
-        bool bombaNoCaminho = false;
+        /*bool bombaNoCaminho = false;
         for (int i = 0; i < MAX_BOMBAS; i++) {
             // Verifica se a bomba está ativa e na mesma posição do movimento
             if (p->listaBombas[i].state != BOMB_STATE_INACTIVE &&
@@ -70,12 +70,12 @@ int AtualizarPersonagem(Jogador *p, int mapa[ALTURA][LARGURA]) {
                 bombaNoCaminho = true;
                 break; // Sai do loop se encontrar uma bomba
             }
-        }
+        }*/ // vou fazer separado mas vai que de merda
 
         // Verifica se não está saindo do mapa
         if (linha >= 0 && linha < ALTURA && coluna >= 0 && coluna < LARGURA) {
             // Verifica se a posição é uma parede
-            if (mapa[linha][coluna] == 0 && !bombaNoCaminho) {
+            if (mapa[linha][coluna] == 0) { //removi && !bomba no caminho
                 p->x = novoX;
                 p->y = novoY;
                 p->ultimoMovimento = agora;
