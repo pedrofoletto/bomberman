@@ -31,7 +31,6 @@ void AtualizarInimigo(Inimigo *p, int mapa[ALTURA][LARGURA],Jogador *j) {
         while (tentativas < 4 && !encontrou) {
             direcaoCandidata = rand() % 4;
 
-            // 2) calcula o deslocamento
             dx = (direcaoCandidata == LESTE)  ? p->velocidade//se direcao leste
             : (direcaoCandidata == OESTE)  ? -p->velocidade//se direcao oeste
             : 0;//se nenhuma das direcoes
@@ -41,11 +40,11 @@ void AtualizarInimigo(Inimigo *p, int mapa[ALTURA][LARGURA],Jogador *j) {
             novoX = p->x + dx;
             novoY = p->y + dy;
 
-            // 3) converte para índice de célula
+            // indice p/ celula
             int col = novoX / p->tamanho;
             int lin = novoY / p->tamanho;
 
-            // 4) verifica colisão
+            //colisao
             if (lin >= 0 && lin < ALTURA && col >= 0 && col < LARGURA
                 && mapa[lin][col] == 0) {
                 encontrou = true;  // caminho livre

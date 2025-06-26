@@ -1,4 +1,3 @@
-// menu.c
 #include "raylib.h"
 #include "menu.h"
 
@@ -15,7 +14,6 @@ MenuOption ShowMenu(void)
 
     while (!WindowShouldClose())
     {
-        // Navegação
         if (IsKeyPressed(KEY_DOWN)) selected = (selected + 1) % MENU_COUNT;
         if (IsKeyPressed(KEY_UP))   selected = (selected - 1 + MENU_COUNT) % MENU_COUNT;
 
@@ -26,11 +24,9 @@ MenuOption ShowMenu(void)
         BeginDrawing();
         ClearBackground(SKYBLUE);
 
-        // Título
         DrawText("MAIN MENU", MeasureText("MAIN MENU", 40)/-2 + GetScreenWidth()/2,
                  GetScreenHeight()/4, 40, DARKBLUE);
 
-        // Itens
         int spacing = 50;
         int startY  = GetScreenHeight()/2 - (spacing * MENU_COUNT)/2;
         for (int i = 0; i < MENU_COUNT; i++)
@@ -49,5 +45,5 @@ MenuOption ShowMenu(void)
         EndDrawing();
     }
 
-    return MENU_EXIT; // se fechar a janela
+    return MENU_EXIT; 
 }

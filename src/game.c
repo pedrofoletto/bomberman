@@ -113,22 +113,16 @@ bool CarregarMapa(const char *nomeArquivo, int mapa[ALTURA][LARGURA]) {
 
     FILE *arquivo = fopen(nomeArquivo, "rb");
     if (arquivo == NULL) {
-        perror("[ERRO] Fopen falhou dentro de CarregarMapaDeArquivo");
         return false;
     }
-    printf("[DEBUG] Ficheiro aberto com sucesso.\n");
 
-    // --- PONTO CRÍTICO ---
-    printf("[DEBUG] A preparar para ler o ficheiro com fread()...\n");
     size_t elementosLidos = fread(mapa, sizeof(int), ALTURA * LARGURA, arquivo);
-    printf("[DEBUG] A chamada a fread() foi concluida.\n");
-    // --- FIM DO PONTO CRÍTICO ---
 
     fclose(arquivo);
     printf("[DEBUG] Ficheiro fechado.\n");
 
     if (elementosLidos != ALTURA * LARGURA) {
-        printf("[ERRO] O numero de elementos lidos (%zu) e diferente do esperado (%d).\n", elementosLidos, ALTURA * LARGURA);
+        printf("%zu %d.\n", elementosLidos, ALTURA * LARGURA); //veja se o mapa tá escrito certo
         return false;
     }
 

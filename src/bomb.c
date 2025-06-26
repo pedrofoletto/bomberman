@@ -18,7 +18,7 @@ void SoltaBomba(Jogador *p, int mapa[ALTURA][LARGURA]) {
             b->tempoUltimoFrame = 0.0;
             b->tempoVisivelExplosao = 0.0;
             
-            p->bombas--; // Deduz uma bomba do jogador
+            p->bombas--; 
             break;
         }
     }
@@ -40,15 +40,14 @@ void AtualizaBombas(Jogador *p, int mapa[ALTURA][LARGURA]) {
                 b->state = BOMB_STATE_EXPLODING;
                 b->time = GetTime();
                 
-                // --- PRÉ-CÁLCULO DA EXPLOSÃO ---
                 int explosoes = 0;
 
-                // Para cada direção [Direita, Esquerda, Baixo, Cima]
+                // d,e,b,c
                 int dirs[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
                 int *reaches[] = {&b->reachRight, &b->reachLeft, &b->reachDown, &b->reachUp};
 
                 for(int d = 0; d < 4; d++) {
-                    *(reaches[d]) = 0; // Inicializa o alcance da direção atual
+                    *(reaches[d]) = 0; // inicia o range
                     for (int r = 1; r <= b->range; r++) {
                         int nextX = b->x + dirs[d][0] * r;
                         int nextY = b->y + dirs[d][1] * r;
@@ -56,12 +55,12 @@ void AtualizaBombas(Jogador *p, int mapa[ALTURA][LARGURA]) {
                         if (nextX < 0 || nextX >= LARGURA || nextY < 0 || nextY >= ALTURA) break;
                         if (mapa[nextY][nextX] == 1) break;
 
-                        *(reaches[d]) = r; // Aumenta o alcance real
+                        *(reaches[d]) = r; // aumenta alcance, não mexa
 
                         if (mapa[nextY][nextX] == 2) {
                             explosoes++;
                             DestruirBloco(nextY, nextX, mapa);
-                            break; // Para no tijolo
+                            break; // para no tijolo
                         }
                     }
                 }
@@ -82,54 +81,46 @@ void DesenhaBombas(const Jogador *p, Texture2D sheet, int mapa[ALTURA][LARGURA])
     Rectangle dstRect = { 0, 0, CELULA, CELULA };
     Vector2 origin = { 0, 0 };
 
+    const Rectangle spritesExplosao[] = {
+        [0] = {2 * TILE_ORIG, 18 * TILE_ORIG, TILE_ORIG, TILE_ORIG}, // Centro
+        [1] = {1 * TILE_ORIG, 18 * TILE_ORIG, TILE_ORIG, TILE_ORIG}, // Meio Horizontal
+        [2] = {14 * TILE_ORIG, 14 * TILE_ORIG, TILE_ORIG, TILE_ORIG}, // Meio Vertical
+        [3] = {3 * TILE_ORIG, 18 * TILE_ORIG, TILE_ORIG, TILE_ORIG}, // Ponta Direita
+        [4] = {0 * TILE_ORIG, 18 * TILE_ORIG, TILE_ORIG, TILE_ORIG}, // Ponta Esquerda
+        [5] = {14 * TILE_ORIG, 15 * TILE_ORIG, TILE_ORIG, TILE_ORIG}, // Ponta Baixo
+        [6] = {14 * TILE_ORIG, 13 * TILE_ORIG, TILE_ORIG, TILE_ORIG}  // Ponta Cima
+    };
+
     for (int i = 0; i < MAX_BOMBAS; i++) {
         const Bomba *b = &p->listaBombas[i];
 
-        if (b->state == BOMB_STATE_TICKING) { //ajustado
+        if (b->state == BOMB_STATE_INACTIVE) continue;
+
+        if (b->state == BOMB_STATE_TICKING) {
             srcRect.y = 18 * TILE_ORIG;
-            srcRect.x = b-> frameAtual+5 * TILE_ORIG;
-            dstRect.x = b->x * p->tamanho;
-            dstRect.y = b->y * p->tamanho;
+            srcRect.x = (b->frameAtual + 5) * TILE_ORIG; //a bomba tá indo e reiniciando e nao to com saco pra arrumar, teria que mudar tempo e tick
+            dstRect.x = b->x * CELULA;
+            dstRect.y = b->y * CELULA;
             DrawTexturePro(sheet, srcRect, dstRect, origin, 0.0f, WHITE);
 
-        } else if (b->state == BOMB_STATE_EXPLODING) { 
-            Vector2 spriteCentro = {2, 18};
-            Vector2 spriteMeioH = {1, 18};  // Horizontal (Direita/Esquerda)
-            Vector2 spriteMeioV = {14, 14}; // Vertical (Cima/Baixo)
-            
-            // Pontas
-            Vector2 spritePontaD = {3, 18};  // Direita
-            Vector2 spritePontaE = {0, 18};  // Esquerda
-            Vector2 spritePontaB = {14, 15}; // Baixo
-            Vector2 spritePontaC = {14, 13}; // Cima
+        } else if (b->state == BOMB_STATE_EXPLODING) {
+            // 1. Desenha o centro da explosão
+            dstRect.x = b->x * CELULA;
+            dstRect.y = b->y * CELULA;
+            DrawTexturePro(sheet, spritesExplosao[0], dstRect, origin, 0.0f, WHITE);
 
-            // 1. Desenha o Centro
-            srcRect.x = spriteCentro.x * TILE_ORIG;
-            srcRect.y = spriteCentro.y * TILE_ORIG;
-            dstRect.x = b->x * p->tamanho;
-            dstRect.y = b->y * p->tamanho;
-            DrawTexturePro(sheet, srcRect, dstRect, origin, 0.0f, WHITE);
-            
-            // 2. Prepara para desenhar os raios
-            int *reaches[] = {(int*)&b->reachRight, (int*)&b->reachLeft, (int*)&b->reachDown, (int*)&b->reachUp};
-            int dirs[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}}; // Direita, Esquerda, Baixo, Cima
-            Vector2 pontas[] = {spritePontaD, spritePontaE, spritePontaB, spritePontaC};
-            Vector2 meios[] = {spriteMeioH, spriteMeioH, spriteMeioV, spriteMeioV}; // Note que o MeioH e MeioV são usados duas vezes
+            const int reaches[] = {b->reachRight, b->reachLeft, b->reachDown, b->reachUp};
+            const int dirs[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+            const int spriteMeio[] = {1, 1, 2, 2}; // meio h h v v 
+            const int spritePonta[] = {3, 4, 5, 6};  //D, E, B, C
 
-
-            for(int d = 0; d < 4; d++) {
-                for (int r = 1; r <= *(reaches[d]); r++) {
-                    bool isLastStep = (r == *(reaches[d]));
+            for (int d = 0; d < 4; d++) {
+                for (int r = 1; r <= reaches[d]; r++) {
+                    int spriteIdx = (r == reaches[d]) ? spritePonta[d] : spriteMeio[d];
                     
-                    // Escolhe o sprite (Ponta ou Meio)
-                    Vector2 spriteAtual = isLastStep ? pontas[d] : meios[d];
-                    
-                    srcRect.x = spriteAtual.x * TILE_ORIG;
-                    srcRect.y = spriteAtual.y * TILE_ORIG;
-                    
-                    dstRect.x = (b->x + dirs[d][0] * r) * p->tamanho;
-                    dstRect.y = (b->y + dirs[d][1] * r) * p->tamanho;
-                    DrawTexturePro(sheet, srcRect, dstRect, origin, 0.0f, WHITE);
+                    dstRect.x = (b->x + dirs[d][0] * r) * CELULA;
+                    dstRect.y = (b->y + dirs[d][1] * r) * CELULA;
+                    DrawTexturePro(sheet, spritesExplosao[spriteIdx], dstRect, origin, 0.0f, WHITE);
                 }
             }
         }
