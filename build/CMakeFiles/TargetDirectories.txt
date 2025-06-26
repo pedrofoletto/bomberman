@@ -1,0 +1,3 @@
+/Users/lucas/Documents/bomberman-main/build/CMakeFiles/main.dir
+/Users/lucas/Documents/bomberman-main/build/CMakeFiles/edit_cache.dir
+/Users/lucas/Documents/bomberman-main/build/CMakeFiles/rebuild_cache.dir
