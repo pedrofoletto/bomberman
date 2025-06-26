@@ -17,7 +17,7 @@
 #define ALTURA 15
 #define MAXINIMIGOS 5
 
-typedef enum GameScreen { LOGO = 0, TITLE, MENU, OPCOES, GAMEPLAY,LEVEL_COMPLETE ,ENDING, RESUME } GameScreen;
+typedef enum GameScreen { MENU = 0, OPCOES, GAMEPLAY,LEVEL_COMPLETE ,ENDING, RESUME } GameScreen;
 
 
 int main (){
@@ -67,7 +67,7 @@ int main (){
         pedro.listaBombas[i].state = BOMB_STATE_INACTIVE;
     }
 
-    GameScreen currentScreen = LOGO;
+    GameScreen currentScreen = MENU;
     
     InitWindow(SCREEN_W, SCREEN_H, "Mini Bomberman");
     SetTargetFPS(60); 
@@ -87,21 +87,11 @@ int main (){
         // lógica
         switch (currentScreen)
         {
-            case LOGO:
-            {
-                currentScreen=TITLE;
-            } break;
-            case TITLE:
-            {
-                if (IsKeyPressed(KEY_ENTER))
-                {
-                    currentScreen = MENU;
-                }
-            } break;
             case MENU:
             {
                 MenuOption choice = ShowMenu();
                 if (choice == MENU_START)   currentScreen = GAMEPLAY;
+                else if (choice == MENU_CONTINUE);//load save
                 else if (choice == MENU_OPTIONS) {currentScreen = OPCOES;}
                 else if (choice == MENU_EXIT)   CloseWindow();
 
@@ -128,20 +118,8 @@ int main (){
                 }
                 
                 if (IsKeyPressed(KEY_ESCAPE)) currentScreen = RESUME;
-                
-                int playerStatus = AtualizarPersonagem(&pedro, mapa);
-                
-                AtualizaBombas(&pedro, mapa); 
 
-                AtualizarInimigo(&inimigo1, mapa, &pedro);
-                AtualizarInimigo(&inimigo2, mapa, &pedro);
                 
-                if (playerStatus==1)
-                {
-                    printf(">>> Nivel completo! Status do jogador: %d. Mudando para a tela LEVEL_COMPLETE.\n", playerStatus);
-                    currentScreen = LEVEL_COMPLETE;
-                    playerStatus=0;
-                }
             } break;
             case LEVEL_COMPLETE:
             {
@@ -163,7 +141,7 @@ int main (){
 
             case ENDING:
             {
-                if (IsKeyPressed(KEY_ENTER)) currentScreen = TITLE;
+                if (IsKeyPressed(KEY_ENTER)) currentScreen = MENU;
             } break;
             case RESUME:
             {
@@ -180,19 +158,6 @@ int main (){
         
         switch (currentScreen)
         {
-            case LOGO:
-            {
-                DrawText("LOGO SCREEN", CENTER_X("LOGO S`CREEN", 40), SCREEN_H/2 - 20, 40, LIGHTGRAY);
-                DrawText("WAIT for 2 SECONDS...", CENTER_X("WAIT for 2 SECONDS...", 20), SCREEN_H/2 + 30, 20, GRAY);
-            } break;
-            case TITLE:
-            {
-                const char *t1 = "TITLE SCREEN";
-                const char *t2 = "PRESS ENTER to go to MENU";
-                DrawRectangle(0, 0, SCREEN_W, SCREEN_H, GREEN);
-                DrawText(t1, CENTER_X(t1, 40), SCREEN_H/2 - 30, 40, DARKGREEN);
-                DrawText(t2, CENTER_X(t2, 20), SCREEN_H/2 + 30, 20, DARKGREEN);
-            } break;
             case MENU:
             {
                 DrawRectangle(0, 0, SCREEN_W, SCREEN_H, SKYBLUE);
@@ -209,7 +174,7 @@ int main (){
                 DrawText(t3, CENTER_X(t3, 20), SCREEN_H/2 + 40, 20, LIGHTGRAY);
             } break;
             case GAMEPLAY:
-            {
+            {                
                 AtualizaBombas(&pedro, mapa);
                 AtualizarInimigo( &inimigo1, mapa,&pedro);
                 AtualizarInimigo( &inimigo2, mapa,&pedro);
@@ -219,6 +184,13 @@ int main (){
                 DesenharInimigo(inimigo2,sheet);
                 DesenharPersonagem(pedro,sheet);
                 DesenhaBombas(&pedro, sheet, mapa);
+                int playerStatus = AtualizarPersonagem(&pedro, mapa);
+                if (playerStatus==1)
+                {
+                    printf(">>> Nivel completo! Status do jogador: %d. Mudando para a tela LEVEL_COMPLETE.\n", playerStatus);
+                    currentScreen = LEVEL_COMPLETE;
+                    playerStatus=0;
+                }
             } break;
             case LEVEL_COMPLETE: 
             {

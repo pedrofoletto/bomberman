@@ -3,6 +3,7 @@
 
 static const char *menuItems[MENU_COUNT] = {
     "START GAME",
+    "CONTINUE",
     "OPTIONS",
     "EXIT"
 };

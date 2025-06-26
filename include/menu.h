@@ -4,6 +4,7 @@
 
 typedef enum {
     MENU_START = 0,
+    MENU_CONTINUE,
     MENU_OPTIONS,
     MENU_EXIT,
     MENU_COUNT    // sempre último, para contar quantas opções existem
