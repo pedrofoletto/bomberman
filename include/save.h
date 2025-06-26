@@ -14,5 +14,6 @@ typedef struct SaveData {
 
 void SalvarProgresso(const Jogador *jogador, int fase);
 bool CarregarProgresso(Jogador *jogador, int *fase);
+bool NovoJogo(Jogador *jogador, int *fase);
 
 #endif // SAVE_H

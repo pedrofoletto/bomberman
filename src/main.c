@@ -1,5 +1,3 @@
-// pedrofoletto/bomberman/bomberman-bc4fb442525c76aef661d54cd11103d0ea5b1ea2/src/main.c
-
 #include <raylib.h>
 #include <stdlib.h>
 #include <time.h>
@@ -25,6 +23,7 @@ void ReiniciarJogo(int *fase, Jogador *jogador, Inimigo *inimigo1, Inimigo *inim
     *fase = 1; 
     SetupLevel(jogador, inimigo1, inimigo2, mapa, *fase);
     jogador->vida = true; 
+    jogador->score = 0;
     inimigo1->vida = true;
     inimigo2->vida = true;
 }
@@ -96,7 +95,10 @@ int main (){
             case MENU:
             {
                 MenuOption choice = ShowMenu();
-                if (choice == MENU_START)   currentScreen = GAMEPLAY;
+                if (choice == MENU_START){
+                    NovoJogo(&pedro, &fase);
+                    currentScreen = GAMEPLAY;
+                }   
                 else if (choice == MENU_CONTINUE)//carrega save
                 {
                     if (CarregarProgresso(&pedro, &fase)) {
@@ -271,10 +273,13 @@ int main (){
 
                 const char *go1 = "MORREU";
                 const char *go2 = "ENTER para Reiniciar";
+                const char *scoreText = TextFormat("Score: %d", pedro.score);
+                
 
                 DrawRectangle(0, 0, SCREEN_W, SCREEN_H, BLACK);
                 DrawText(go1, CENTER_X(go1, TAMANHO_TITULO), SCREEN_H/2 - ESPACAMENTO_VERTICAL, TAMANHO_TITULO, RED);
-                DrawText(go2, CENTER_X(go2, TAMANHO_SUBTITULO), SCREEN_H/2 + ESPACAMENTO_VERTICAL, TAMANHO_SUBTITULO, WHITE);
+                DrawText(scoreText, CENTER_X(scoreText, TAMANHO_SUBTITULO), SCREEN_H/2 + ESPACAMENTO_VERTICAL, TAMANHO_SUBTITULO, WHITE);
+                DrawText(go2, CENTER_X(go2, TAMANHO_SUBTITULO), SCREEN_H/2 + (ESPACAMENTO_VERTICAL*2), TAMANHO_SUBTITULO, WHITE);
             } break;
             case ENDING:
             {

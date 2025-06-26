@@ -19,10 +19,9 @@ void EscreverInfo(int fase, int score, int bombas, int alcance) {
     int y_inicial = 960; 
     int espaco = 20;
 
-    DrawText(TextFormat("Fase: %08d", fase), 0, y_inicial, espaco, BLUE);
-    DrawText(TextFormat("Score: %08d", score), 0, y_inicial + espaco, espaco, RED);
-    DrawText(TextFormat("Alcance: %d", alcance), 0, y_inicial, 5*espaco, BLUE);
-    DrawText(TextFormat("Score: %08i", score), 0, y_inicial + espaco, 5*espaco, BLUE);
+    DrawText(TextFormat("Fase: %02d", fase), 0, y_inicial, espaco, BLUE);
+    DrawText(TextFormat("Score: %04d", score), 0, y_inicial + espaco, espaco, BLUE);
+    DrawText(TextFormat("Alcance: %d", alcance), 0, y_inicial+(espaco*2),espaco , BLUE);
 }
 
 //lê a matriz e substitui os números por retângulos

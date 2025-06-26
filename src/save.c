@@ -51,3 +51,13 @@ bool CarregarProgresso(Jogador *jogador, int *fase) {
     printf("continuando jogo: fase %d.\n", *fase);
     return true;
 }
+bool NovoJogo(Jogador *jogador, int *fase) {
+    *fase = 1; // reinicia a fase
+    jogador->score = 0;
+    jogador->bombas = 1; // reinicia o número de bombas
+    for (int i = 0; i < MAX_BOMBAS; i++) {
+        jogador->listaBombas[i].state = BOMB_STATE_INACTIVE;
+        jogador->listaBombas[i].range = 2; // valor padrão
+    }
+    return true;
+}
