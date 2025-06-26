@@ -297,6 +297,30 @@ src/player.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/player.c.s
 .PHONY : src/player.c.s
 
+src/save.o: src/save.c.o
+.PHONY : src/save.o
+
+# target to build an object file
+src/save.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/save.c.o
+.PHONY : src/save.c.o
+
+src/save.i: src/save.c.i
+.PHONY : src/save.i
+
+# target to preprocess a source file
+src/save.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/save.c.i
+.PHONY : src/save.c.i
+
+src/save.s: src/save.c.s
+.PHONY : src/save.s
+
+# target to generate assembly for a file
+src/save.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/save.c.s
+.PHONY : src/save.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -327,6 +351,9 @@ help:
 	@echo "... src/player.o"
 	@echo "... src/player.i"
 	@echo "... src/player.s"
+	@echo "... src/save.o"
+	@echo "... src/save.i"
+	@echo "... src/save.s"
 .PHONY : help
 
 

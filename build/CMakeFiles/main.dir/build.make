@@ -167,6 +167,20 @@ CMakeFiles/main.dir/src/player.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/src/player.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/pedropop/Documentos/bomberman/src/player.c -o CMakeFiles/main.dir/src/player.c.s
 
+CMakeFiles/main.dir/src/save.c.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/save.c.o: ../src/save.c
+CMakeFiles/main.dir/src/save.c.o: CMakeFiles/main.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pedropop/Documentos/bomberman/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/main.dir/src/save.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main.dir/src/save.c.o -MF CMakeFiles/main.dir/src/save.c.o.d -o CMakeFiles/main.dir/src/save.c.o -c /home/pedropop/Documentos/bomberman/src/save.c
+
+CMakeFiles/main.dir/src/save.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/main.dir/src/save.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/pedropop/Documentos/bomberman/src/save.c > CMakeFiles/main.dir/src/save.c.i
+
+CMakeFiles/main.dir/src/save.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/src/save.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/pedropop/Documentos/bomberman/src/save.c -o CMakeFiles/main.dir/src/save.c.s
+
 # Object files for target main
 main_OBJECTS = \
 "CMakeFiles/main.dir/src/bomb.c.o" \
@@ -175,7 +189,8 @@ main_OBJECTS = \
 "CMakeFiles/main.dir/src/level.c.o" \
 "CMakeFiles/main.dir/src/main.c.o" \
 "CMakeFiles/main.dir/src/menu.c.o" \
-"CMakeFiles/main.dir/src/player.c.o"
+"CMakeFiles/main.dir/src/player.c.o" \
+"CMakeFiles/main.dir/src/save.c.o"
 
 # External object files for target main
 main_EXTERNAL_OBJECTS =
@@ -187,9 +202,10 @@ main: CMakeFiles/main.dir/src/level.c.o
 main: CMakeFiles/main.dir/src/main.c.o
 main: CMakeFiles/main.dir/src/menu.c.o
 main: CMakeFiles/main.dir/src/player.c.o
+main: CMakeFiles/main.dir/src/save.c.o
 main: CMakeFiles/main.dir/build.make
 main: CMakeFiles/main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pedropop/Documentos/bomberman/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking C executable main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pedropop/Documentos/bomberman/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking C executable main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main.dir/link.txt --verbose=$(VERBOSE)
 	/usr/bin/cmake -E copy_directory /home/pedropop/Documentos/bomberman/resources /home/pedropop/Documentos/bomberman/build/resources
 

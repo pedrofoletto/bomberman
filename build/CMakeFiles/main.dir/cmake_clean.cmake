@@ -13,6 +13,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/main.dir/src/menu.c.o.d"
   "CMakeFiles/main.dir/src/player.c.o"
   "CMakeFiles/main.dir/src/player.c.o.d"
+  "CMakeFiles/main.dir/src/save.c.o"
+  "CMakeFiles/main.dir/src/save.c.o.d"
   "main"
   "main.pdb"
 )

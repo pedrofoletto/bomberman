@@ -15,6 +15,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/pedropop/Documentos/bomberman/src/main.c" "CMakeFiles/main.dir/src/main.c.o" "gcc" "CMakeFiles/main.dir/src/main.c.o.d"
   "/home/pedropop/Documentos/bomberman/src/menu.c" "CMakeFiles/main.dir/src/menu.c.o" "gcc" "CMakeFiles/main.dir/src/menu.c.o.d"
   "/home/pedropop/Documentos/bomberman/src/player.c" "CMakeFiles/main.dir/src/player.c.o" "gcc" "CMakeFiles/main.dir/src/player.c.o.d"
+  "/home/pedropop/Documentos/bomberman/src/save.c" "CMakeFiles/main.dir/src/save.c.o" "gcc" "CMakeFiles/main.dir/src/save.c.o.d"
   )
 
 # Targets to which this target links.

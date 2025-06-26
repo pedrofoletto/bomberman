@@ -8,6 +8,7 @@
 #include "enemy.h"
 #include "level.h"
 #include <stdio.h> // Para usar o printf
+#include "save.h"
 
 #define SCREEN_W 64*15
 #define SCREEN_H 1080
@@ -54,6 +55,11 @@ int main (){
     Inimigo inimigo1;
     Inimigo inimigo2;
     CriarPersonagem(&pedro);
+
+    if (!CarregarProgresso(&pedro, &fase)) {
+    fase = 1;
+    }
+    
     CriarInimigo(&inimigo1);
     CriarInimigo(&inimigo2);
 
@@ -70,7 +76,7 @@ int main (){
 
     Tijolos(&mapa[0][0], fase);
     
-    // <<< DEBUG 1: Imprime o valor inicial da fase
+    // valor da fase
     printf("================================\n");
     printf("JOGO INICIADO. FASE INICIAL: %d\n", fase);
     printf("================================\n");
@@ -78,7 +84,7 @@ int main (){
     Texture2D sheet = LoadTexture("resources/bomb_party_v4.png");
     while(!WindowShouldClose())
     {
-        // --- LÓGICA DO JOGO ---
+        // lógica
         switch (currentScreen)
         {
             case LOGO:
@@ -145,6 +151,7 @@ int main (){
                     printf("--- Transicao de Nivel ---\n");
                     printf("   Fase ANTES do incremento: %d\n", fase);
                     fase++;
+                    SalvarProgresso(&pedro, fase);
                     printf("   Fase DEPOIS do incremento: %d\n", fase);
                     
                     SetupLevel(&pedro, &inimigo1, &inimigo2, mapa, fase);

@@ -85,29 +85,47 @@ void DesenhaBombas(const Jogador *p, Texture2D sheet, int mapa[ALTURA][LARGURA])
     for (int i = 0; i < MAX_BOMBAS; i++) {
         const Bomba *b = &p->listaBombas[i];
 
-        if (b->state == BOMB_STATE_TICKING) {
-            srcRect.y = 15 * TILE_ORIG;
-            srcRect.x = b->frameAtual * TILE_ORIG;
+        if (b->state == BOMB_STATE_TICKING) { //ajustado
+            srcRect.y = 18 * TILE_ORIG;
+            srcRect.x = b-> frameAtual+5 * TILE_ORIG;
             dstRect.x = b->x * p->tamanho;
             dstRect.y = b->y * p->tamanho;
             DrawTexturePro(sheet, srcRect, dstRect, origin, 0.0f, WHITE);
 
-        } else if (b->state == BOMB_STATE_EXPLODING) {
-            srcRect.y = 13 * TILE_ORIG; 
+        } else if (b->state == BOMB_STATE_EXPLODING) { 
+            Vector2 spriteCentro = {2, 18};
+            Vector2 spriteMeioH = {1, 18};  // Horizontal (Direita/Esquerda)
+            Vector2 spriteMeioV = {14, 14}; // Vertical (Cima/Baixo)
+            
+            // Pontas
+            Vector2 spritePontaD = {3, 18};  // Direita
+            Vector2 spritePontaE = {0, 18};  // Esquerda
+            Vector2 spritePontaB = {14, 15}; // Baixo
+            Vector2 spritePontaC = {14, 13}; // Cima
 
-            srcRect.x = 0 * TILE_ORIG;
+            // 1. Desenha o Centro
+            srcRect.x = spriteCentro.x * TILE_ORIG;
+            srcRect.y = spriteCentro.y * TILE_ORIG;
             dstRect.x = b->x * p->tamanho;
             dstRect.y = b->y * p->tamanho;
             DrawTexturePro(sheet, srcRect, dstRect, origin, 0.0f, WHITE);
             
+            // 2. Prepara para desenhar os raios
             int *reaches[] = {(int*)&b->reachRight, (int*)&b->reachLeft, (int*)&b->reachDown, (int*)&b->reachUp};
-            int dirs[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
-            int sprites[4][2] = {{6, 1}, {5, 1}, {4, 2}, {3, 2}}; 
+            int dirs[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}}; // Direita, Esquerda, Baixo, Cima
+            Vector2 pontas[] = {spritePontaD, spritePontaE, spritePontaB, spritePontaC};
+            Vector2 meios[] = {spriteMeioH, spriteMeioH, spriteMeioV, spriteMeioV}; // Note que o MeioH e MeioV são usados duas vezes
+
 
             for(int d = 0; d < 4; d++) {
                 for (int r = 1; r <= *(reaches[d]); r++) {
                     bool isLastStep = (r == *(reaches[d]));
-                    srcRect.x = (isLastStep ? sprites[d][0] : sprites[d][1]) * TILE_ORIG;
+                    
+                    // Escolhe o sprite (Ponta ou Meio)
+                    Vector2 spriteAtual = isLastStep ? pontas[d] : meios[d];
+                    
+                    srcRect.x = spriteAtual.x * TILE_ORIG;
+                    srcRect.y = spriteAtual.y * TILE_ORIG;
                     
                     dstRect.x = (b->x + dirs[d][0] * r) * p->tamanho;
                     dstRect.y = (b->y + dirs[d][1] * r) * p->tamanho;

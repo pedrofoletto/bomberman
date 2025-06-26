@@ -283,7 +283,8 @@ CMakeFiles/main.dir/src/main.c.o: ../src/main.c \
   /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
-  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h
+  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  ../include/save.h
 
 CMakeFiles/main.dir/src/menu.c.o: ../src/menu.c \
   /usr/include/stdc-predef.h \
@@ -306,6 +307,8 @@ CMakeFiles/main.dir/src/player.c.o: ../src/player.c \
 ../src/player.c:
 
 ../src/menu.c:
+
+../include/save.h:
 
 ../include/level.h:
 
