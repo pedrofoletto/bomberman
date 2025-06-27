@@ -108,7 +108,6 @@ void Tijolos(int *mapa, int fase) {
 }
 
 bool CarregarMapa(const char *nomeArquivo, int mapa[ALTURA][LARGURA]) {
-    printf("[DEBUG] A entrar na funcao CarregarMapaDeArquivo para o ficheiro: %s\n", nomeArquivo);
 
     FILE *arquivo = fopen(nomeArquivo, "rb");
     if (arquivo == NULL) {
@@ -118,14 +117,12 @@ bool CarregarMapa(const char *nomeArquivo, int mapa[ALTURA][LARGURA]) {
     size_t elementosLidos = fread(mapa, sizeof(int), ALTURA * LARGURA, arquivo);
 
     fclose(arquivo);
-    printf("[DEBUG] Ficheiro fechado.\n");
 
     if (elementosLidos != ALTURA * LARGURA) {
         printf("%zu %d.\n", elementosLidos, ALTURA * LARGURA); //veja se o mapa tá escrito certo
         return false;
     }
 
-    printf("[DEBUG] Mapa carregado com sucesso da funcao.\n");
     return true;
 }
 

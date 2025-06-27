@@ -56,16 +56,11 @@ elseif(WIN32)
 elseif(UNIX)
     message(STATUS "Compilando para Linux")
 
-    # Aponta para a pasta onde você baixou o código-fonte da Raylib
-    set(RAYLIB_PATH /home/engenheiro/raylib) 
-    
-    # Diz ao compilador para procurar headers na pasta 'src' da Raylib
-    target_include_directories(${PROJECT_NAME} PRIVATE ${RAYLIB_PATH}/src)
-    
-    # Diz ao linker para procurar a biblioteca (libraylib.a) na pasta 'src'
-    target_link_directories(${PROJECT_NAME} PRIVATE ${RAYLIB_PATH}/src)
-    
-    # Linka com a raylib e suas dependências
+    # Esta configuração é mais genérica e assume que a Raylib foi instalada no sistema
+    # (por exemplo, usando 'sudo make install' no diretório de código-fonte da Raylib).
+    # O compilador encontrará os ficheiros de cabeçalho e a biblioteca nos caminhos padrão.
+
+    # Apenas precisamos de dizer ao linker para usar a biblioteca 'raylib' e as suas dependências.
     target_link_libraries(${PROJECT_NAME}
         raylib
         m

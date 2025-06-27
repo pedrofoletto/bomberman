@@ -80,7 +80,7 @@ int main (){
     
     InitWindow(SCREEN_W, SCREEN_H, "Mini Bomberman");
     SetTargetFPS(60);
-    
+    SetExitKey(KEY_NULL);
     srand(time(NULL));
 
     Tijolos(&mapa[0][0], fase);
@@ -113,7 +113,7 @@ int main (){
             case OPCOES:{
                 if (IsKeyPressed(KEY_L))
                 {
-                    if (CarregarMapa("maps/custom_map.bin", mapa)){
+                    if (CarregarMapa("../maps/custom_map.bin", mapa)){
                         CriarPersonagem(&pedro);
                         CriarInimigo(&inimigo1);
                         CriarInimigo(&inimigo2);
@@ -210,6 +210,13 @@ int main (){
             case RESUME:
             {
                 if (IsKeyPressed(KEY_ESCAPE)) currentScreen = GAMEPLAY;
+                if (IsKeyPressed(KEY_Q))
+    {
+        // StopMusicStream(musicaJogo);
+        // PlayMusicStream(musicaMenu);
+
+        currentScreen = MENU;
+    }
             } break;
             default: break;
         }
@@ -280,7 +287,7 @@ int main (){
                 DrawText(go1, CENTER_X(go1, TAMANHO_TITULO), SCREEN_H/2 - ESPACAMENTO_VERTICAL, TAMANHO_TITULO, RED);
                 DrawText(scoreText, CENTER_X(scoreText, TAMANHO_SUBTITULO), SCREEN_H/2 + ESPACAMENTO_VERTICAL, TAMANHO_SUBTITULO, WHITE);
                 DrawText(go2, CENTER_X(go2, TAMANHO_SUBTITULO), SCREEN_H/2 + (ESPACAMENTO_VERTICAL*2), TAMANHO_SUBTITULO, WHITE);
-            } break;
+             } break;
             case ENDING:
             {
                 const char *e1 = "ENDING SCREEN";
@@ -291,11 +298,13 @@ int main (){
             } break;
             case RESUME:
             {
-                const char *r1 = "PAUSE MENU";
+                const char *r1 = "Precisando de um tempo?";
                 const char *r2 = "ESC para voltar ao jogo";
+                const char *r3 = "pressione [Q] para voltar ao menu";
                 DrawRectangle(0, 0, SCREEN_W, SCREEN_H, BLACK);
-                DrawText(r1, CENTER_X(r1, 40), SCREEN_H/2 - 30, 40, WHITE);
-                DrawText(r2, CENTER_X(r2, 20), SCREEN_H/2 + 30, 20, WHITE);
+                DrawText(r1, CENTER_X(r1, 40), SCREEN_H/2 - 40, 40, WHITE);
+                DrawText(r2, CENTER_X(r2, 20), SCREEN_H/2 + 20, 20, WHITE);
+                DrawText(r3, CENTER_X(r3, 20), SCREEN_H/2 + 50, 20, WHITE);
             } break;
             default: break;
         }
