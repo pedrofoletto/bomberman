@@ -109,8 +109,8 @@ int main (){
     SetTargetFPS(60);
     SetExitKey(KEY_NULL);
     srand(time(NULL));
-    //InitAudioDevice();
-    //Music musica = LoadMusicStream("resources/jogo.ogg");
+    InitAudioDevice();
+    Music musica = LoadMusicStream("resources/jogo.ogg");
     Tijolos(&mapa[0][0], fase);
 
     
@@ -118,7 +118,7 @@ int main (){
     while(!WindowShouldClose())
     {
         // logica
-        //UpdateMusicStream(musica);
+        UpdateMusicStream(musica);
         switch (currentScreen)
         {
             case MENU:
@@ -127,14 +127,14 @@ int main (){
                 if (choice == MENU_START){
                     NovoJogo(&pedro, &fase);
                     currentScreen = GAMEPLAY;
-                    //PlayMusicStream(musica);
+                    PlayMusicStream(musica);
                 }   
                 else if (choice == MENU_CONTINUE)//carrega save
                 {
                     if (CarregarProgresso(&pedro, &fase)) {
                         SetupLevel(&pedro, &inimigo1, &inimigo2, mapa, fase);
                         currentScreen = GAMEPLAY;
-                        //PlayMusicStream(musica);
+                        PlayMusicStream(musica);
                     }
                 }
                 else if (choice == MENU_OPTIONS) {currentScreen = OPCOES;}
@@ -161,7 +161,7 @@ int main (){
             case GAMEPLAY:
             {   
                 if (IsKeyPressed(KEY_ESCAPE)){ 
-                //PauseMusicStream(musica);
+                PauseMusicStream(musica);
                 currentScreen = RESUME;
                 }
 
@@ -236,7 +236,7 @@ int main (){
                 }
                 if (IsKeyPressed(KEY_Q))
                 {
-                    //StopMusicStream(musica);
+                    StopMusicStream(musica);
                     ResetarMapaParaPadrao(mapa); // Restaura o mapa
                     currentScreen = MENU;
                 }
@@ -248,12 +248,12 @@ int main (){
             case RESUME:
             {
                 if (IsKeyPressed(KEY_ESCAPE)){ 
-                    //ResumeMusicStream(musica);
+                    ResumeMusicStream(musica);
                     currentScreen = GAMEPLAY;
                 }
                 if (IsKeyPressed(KEY_Q))
     {
-        //StopMusicStream(musica);
+        StopMusicStream(musica);
 
         currentScreen = MENU;
     }
@@ -346,7 +346,7 @@ int main (){
         EndDrawing();
     }
     UnloadTexture(sheet);
-    //CloseAudioDevice();
+    CloseAudioDevice();
     CloseWindow();
     return 0;
 }
