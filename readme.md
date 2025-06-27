@@ -15,23 +15,24 @@ Como Compilar e Executar
 
 Este projeto utiliza o CMake para facilitar a compilação em diferentes sistemas operativos.
 
-    Clone o repositório:
-    Bash
+Clone o repositório:
 
-git clone [https://github.com/pedrofoletto/bomberman.git]
-cd [bomberman]
+Bash
+
+    git clone [https://github.com/pedrofoletto/bomberman.git]
+    cd [bomberman]
 
 Use o CMake para criar os ficheiros de compilação:
 Bash
 
-mkdir build
-cd build
-cmake ..
+    mkdir build
+    cd build
+    cmake ..
 
 Compile o jogo:
 Bash
 
-make
+    make
 
 Execute o jogo:
 O executável será criado dentro da pasta build.
@@ -58,11 +59,11 @@ O jogo inclui uma ferramenta para converter mapas de texto em mapas que o jogo p
 
     Desenhe o seu mapa: Crie um ficheiro .txt na pasta maps/. Use 'W' para paredes, 'B' para tijolos destrutíveis e espaço para caminhos livres.
 
-    Compile a ferramenta de conversão:
-    Bash
+Compile a ferramenta de conversão:
+Bash
 
-cd tools
-make conversao
+    cd tools
+    make conversao
 
 Execute a conversão:
 A ferramenta recebe o arquivo do mapa de entrada e o de saída como argumentos.
