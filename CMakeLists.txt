@@ -31,11 +31,11 @@ if(APPLE)
 
    target_link_libraries(${PROJECT_NAME}
         raylib
-        OpenGL
-        Cocoa
-        IOKit
-        CoreAudio
-        CoreVideo
+        "-framework OpenGL"
+        "-framework Cocoa"
+        "-framework IOKit"
+        "-framework CoreAudio"
+        "-framework CoreVideo"
     )
         # Copiar pasta resources para o diretório do executável
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
