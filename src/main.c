@@ -110,7 +110,7 @@ int main (){
     SetExitKey(KEY_NULL);
     srand(time(NULL));
     //InitAudioDevice();
-    Music musica = LoadMusicStream("resources/jogo.ogg");
+    //Music musica = LoadMusicStream("resources/jogo.ogg");
     Tijolos(&mapa[0][0], fase);
 
     
@@ -161,7 +161,7 @@ int main (){
             case GAMEPLAY:
             {   
                 if (IsKeyPressed(KEY_ESCAPE)){ 
-                PauseMusicStream(musica);
+                //PauseMusicStream(musica);
                 currentScreen = RESUME;
                 }
 
