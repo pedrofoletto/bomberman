@@ -1,6 +1,7 @@
 #include "bomb.h"
 #include <time.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 void SoltaBomba(Jogador *p, int mapa[ALTURA][LARGURA]) {
 
@@ -10,9 +11,10 @@ void SoltaBomba(Jogador *p, int mapa[ALTURA][LARGURA]) {
             bombasAtivas++;
         }
     }
-    if (bombasAtivas >= p->bombas) {
+    if (bombasAtivas > p->bombas) {
         return; 
     }
+        printf("Tentando soltar bomba. Bombas ativas: %d, Max bombas: %d\n", bombasAtivas, p->bombas);
 
     for (int i = 0; i < MAX_BOMBAS; i++) {
         if (p->listaBombas[i].state == BOMB_STATE_INACTIVE) {
@@ -146,6 +148,8 @@ static void DestruirBloco(int linha, int coluna, int mapa[ALTURA][LARGURA]) {
             mapa[linha][coluna] = 0;
             if ((rand() % 100) < 20) {
                 mapa[linha][coluna] = 3;
+            }else if ((rand() % 100) < 10) {
+                mapa[linha][coluna] = 5; // Power-up de alcance
             }
         }
     }

@@ -13,6 +13,7 @@ void CriarPersonagem(Jogador *p) {
     p->cooldown = 0.375; //ms
     p->ultimoMovimento = 0.0;
     p->direcao = NORTE;
+    p->alcance = 1; // alcance inicial da bomba
     //p->score = 0; estou testando pra ver se funciona o save
 
     p->frameAtual = 0;
@@ -32,7 +33,7 @@ int AtualizarPersonagem(Jogador *p, int mapa[ALTURA][LARGURA]) {
     float delta = GetFrameTime();
     p->tempoUltimoFrame += delta;
     
-    if (IsKeyDown(KEY_SPACE)) {//bomba
+    if (IsKeyPressed(KEY_SPACE)) {//bomba
         SoltaBomba(p, mapa);
     }
     if (agora - p->ultimoMovimento >= p->cooldown) {//movimentação
@@ -93,6 +94,12 @@ int AtualizarPersonagem(Jogador *p, int mapa[ALTURA][LARGURA]) {
                 p->y = novoY;
                 p->ultimoMovimento = agora;
                 return 1; // indica que o jogador encontrou o portal
+            }else if (mapa[linha][coluna]==5){//powerup de range
+                p->alcance++;
+                p->x = novoX;
+                p->y = novoY;
+                p->ultimoMovimento = agora;
+                mapa[linha][coluna] = 0;
             }
             
         }

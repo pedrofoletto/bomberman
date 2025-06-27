@@ -70,6 +70,10 @@ void Construir(int *mapa, Texture2D sheet) {
                     srcRect.x = 6 * TILE_ORIG;
                     srcRect.y = 13 * TILE_ORIG;
                     break;
+                case 5: // power-up de alcance
+                    srcRect.x = 5 * TILE_ORIG;
+                    srcRect.y = 13 * TILE_ORIG;
+                    break;
                 default:
                 srcRect.x = 1 * TILE_ORIG;
                 srcRect.y = 2 * TILE_ORIG;
