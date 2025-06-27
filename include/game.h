@@ -9,10 +9,12 @@ typedef struct infJogo
     int fase;
     int mapa[15][15];
 }infJogo;
+
 void EscreverInfo(int fase, int score, int bombas, int alcance);
 void Construir(int *mapa, Texture2D sheet);
 int Conversao(char c);
 void Tijolos(int *mapa, int fase);
 bool CarregarMapa(const char *uploadmapa, int mapa[ALTURA][LARGURA]);
+void ResetarMapaParaPadrao(int mapa[ALTURA][LARGURA]);
 
 #endif // GAME_H

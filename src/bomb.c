@@ -3,14 +3,25 @@
 #include <stdlib.h>
 
 void SoltaBomba(Jogador *p, int mapa[ALTURA][LARGURA]) {
-    if (p->bombas == 0) return;
+
+    int bombasAtivas = 0;
+    for (int i = 0; i < MAX_BOMBAS; i++) {
+        if (p->listaBombas[i].state != BOMB_STATE_INACTIVE) {
+            bombasAtivas++;
+        }
+    }
+    if (bombasAtivas >= p->bombas) {
+        return; 
+    }
+
     for (int i = 0; i < MAX_BOMBAS; i++) {
         if (p->listaBombas[i].state == BOMB_STATE_INACTIVE) {
             Bomba *b = &p->listaBombas[i];
             
             b->state = BOMB_STATE_TICKING;
             b->time  = GetTime();
-            b->range = 2;
+            b->range = 2; 
+            
             b->x = (p->x / p->tamanho);
             b->y = (p->y / p->tamanho);
             
@@ -19,8 +30,8 @@ void SoltaBomba(Jogador *p, int mapa[ALTURA][LARGURA]) {
             b->tempoUltimoFrame = 0.0;
             b->tempoVisivelExplosao = 0.0;
             
-            p->bombas--; 
-            break;
+            
+            break; 
         }
     }
 }
@@ -70,7 +81,6 @@ void AtualizaBombas(Jogador *p, int mapa[ALTURA][LARGURA]) {
         } else if (b->state == BOMB_STATE_EXPLODING) {
             if (GetTime() - b->time >= TEMPO_DURACAO_EXPLOSAO) {
                 b->state = BOMB_STATE_INACTIVE;
-                if (p->bombas < 1) p->bombas++;
             }
         }
     }

@@ -28,6 +28,32 @@ void ReiniciarJogo(int *fase, Jogador *jogador, Inimigo *inimigo1, Inimigo *inim
     inimigo2->vida = true;
 }
 
+void ResetarMapaParaPadrao(int mapa[ALTURA][LARGURA]) {
+    int mapaPadrao[ALTURA][LARGURA] = {
+        {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,1,0,1,0,1,0,1,0,1,0,1,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,1,0,1,0,1,0,1,0,1,0,1,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,1,0,1,0,1,0,1,0,1,0,1,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,1,0,1,0,1,0,1,0,1,0,1,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,1,0,1,0,1,0,1,0,1,0,1,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,1,0,1,0,1,0,1,0,1,0,1,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+    };
+
+    for (int i = 0; i < ALTURA; i++) {
+        for (int j = 0; j < LARGURA; j++) {
+            mapa[i][j] = mapaPadrao[i][j];
+        }
+    }
+}
+
 int main (){
 
     int mapa[ALTURA][LARGURA] = {
@@ -47,6 +73,7 @@ int main (){
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
     };
+
 
     infJogo jogo;
 
@@ -82,7 +109,7 @@ int main (){
     SetTargetFPS(60);
     SetExitKey(KEY_NULL);
     srand(time(NULL));
-
+    InitAudioDevice();
     Tijolos(&mapa[0][0], fase);
 
     
@@ -202,6 +229,11 @@ int main (){
                     SalvarProgresso(&pedro, fase);
                     currentScreen = GAMEPLAY;
                 }
+                if (IsKeyPressed(KEY_Q))
+                {
+                    ResetarMapaParaPadrao(mapa); // Restaura o mapa
+                    currentScreen = MENU;
+                }
             } break;
             case ENDING:
             {
@@ -252,7 +284,14 @@ int main (){
                         break;
                     }
                 }
-                
+                int bombasAtivas = 0;
+                for (int i = 0; i < MAX_BOMBAS; i++) {
+                    if (pedro.listaBombas[i].state != BOMB_STATE_INACTIVE) {
+                        bombasAtivas++;
+                    }
+                }
+                int bombasDisponiveis = pedro.bombas - bombasAtivas;
+
                 Construir(&mapa[0][0], sheet);
                 if (inimigo1.vida) DesenharInimigo(inimigo1, sheet);
                 if (inimigo2.vida) DesenharInimigo(inimigo2, sheet);
@@ -280,6 +319,7 @@ int main (){
 
                 const char *go1 = "MORREU";
                 const char *go2 = "ENTER para Reiniciar";
+                const char *go3 = "(Q) para voltar ao Menu";
                 const char *scoreText = TextFormat("Score: %d", pedro.score);
                 
 
@@ -287,6 +327,7 @@ int main (){
                 DrawText(go1, CENTER_X(go1, TAMANHO_TITULO), SCREEN_H/2 - ESPACAMENTO_VERTICAL, TAMANHO_TITULO, RED);
                 DrawText(scoreText, CENTER_X(scoreText, TAMANHO_SUBTITULO), SCREEN_H/2 + ESPACAMENTO_VERTICAL, TAMANHO_SUBTITULO, WHITE);
                 DrawText(go2, CENTER_X(go2, TAMANHO_SUBTITULO), SCREEN_H/2 + (ESPACAMENTO_VERTICAL*2), TAMANHO_SUBTITULO, WHITE);
+                DrawText(go3, CENTER_X(go3, TAMANHO_SUBTITULO), SCREEN_H/2 + (ESPACAMENTO_VERTICAL*3), TAMANHO_SUBTITULO, WHITE);
              } break;
             case ENDING:
             {

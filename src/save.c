@@ -12,7 +12,7 @@ void SalvarProgresso(const Jogador *jogador, int fase) {
     if (jogador->listaBombas[0].state != BOMB_STATE_INACTIVE) {
          dados.range = jogador->listaBombas[0].range;
     } else {
-         dados.range = 2; // valor padrao que escolhi
+         dados.range = 2; 
     }
 
     FILE *arquivo = fopen(SAVE_FILE, "wb");
@@ -53,6 +53,7 @@ bool CarregarProgresso(Jogador *jogador, int *fase) {
 }
 bool NovoJogo(Jogador *jogador, int *fase) {
     *fase = 1; // reinicia a fase
+    jogador->vida = true;
     jogador->score = 0;
     jogador->bombas = 1; // reinicia o número de bombas
     for (int i = 0; i < MAX_BOMBAS; i++) {
