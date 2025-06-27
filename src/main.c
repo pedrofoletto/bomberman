@@ -110,6 +110,7 @@ int main (){
     SetExitKey(KEY_NULL);
     srand(time(NULL));
     InitAudioDevice();
+    Music musica = LoadMusicStream("resources/jogo.ogg");
     Tijolos(&mapa[0][0], fase);
 
     
@@ -125,16 +126,20 @@ int main (){
                 if (choice == MENU_START){
                     NovoJogo(&pedro, &fase);
                     currentScreen = GAMEPLAY;
+                    PlayMusicStream(musica);
                 }   
                 else if (choice == MENU_CONTINUE)//carrega save
                 {
                     if (CarregarProgresso(&pedro, &fase)) {
                         SetupLevel(&pedro, &inimigo1, &inimigo2, mapa, fase);
                         currentScreen = GAMEPLAY;
+                        PlayMusicStream(musica);
                     }
                 }
                 else if (choice == MENU_OPTIONS) {currentScreen = OPCOES;}
-                else if (choice == MENU_EXIT)   CloseWindow();
+                else if (choice == MENU_EXIT)  
+                CloseWindow();
+                continue;
 
             } break;
             case OPCOES:{
@@ -153,12 +158,11 @@ int main (){
             } break;
 
             case GAMEPLAY:
-            {
-                if (IsKeyPressed(KEY_P)) {
-                    printf("DEBUG: Estou na FASE %d\n", fase);
+            {   
+                if (IsKeyPressed(KEY_ESCAPE)){ 
+                PauseMusicStream(musica);
+                currentScreen = RESUME;
                 }
-                
-                if (IsKeyPressed(KEY_ESCAPE)) currentScreen = RESUME;
 
                 int playerStatus = AtualizarPersonagem(&pedro, mapa);
                 AtualizaBombas(&pedro, mapa);
@@ -231,6 +235,7 @@ int main (){
                 }
                 if (IsKeyPressed(KEY_Q))
                 {
+                    StopMusicStream(musica);
                     ResetarMapaParaPadrao(mapa); // Restaura o mapa
                     currentScreen = MENU;
                 }
@@ -241,7 +246,10 @@ int main (){
             } break;
             case RESUME:
             {
-                if (IsKeyPressed(KEY_ESCAPE)) currentScreen = GAMEPLAY;
+                if (IsKeyPressed(KEY_ESCAPE)){ 
+                    StopMusicStream(musica);
+                    currentScreen = GAMEPLAY;
+                }
                 if (IsKeyPressed(KEY_Q))
     {
         // StopMusicStream(musicaJogo);
@@ -351,7 +359,8 @@ int main (){
         }
         EndDrawing();
     }
-    CloseWindow();
     UnloadTexture(sheet);
+    CloseAudioDevice();
+    CloseWindow();
     return 0;
 }

@@ -11,10 +11,9 @@ void SoltaBomba(Jogador *p, int mapa[ALTURA][LARGURA]) {
             bombasAtivas++;
         }
     }
-    if (bombasAtivas > p->bombas) {
+    if (bombasAtivas > p->bombas) { //dá pra apagar??? acho que não tá usando
         return; 
     }
-        printf("Tentando soltar bomba. Bombas ativas: %d, Max bombas: %d\n", bombasAtivas, p->bombas);
 
     for (int i = 0; i < MAX_BOMBAS; i++) {
         if (p->listaBombas[i].state == BOMB_STATE_INACTIVE) {
