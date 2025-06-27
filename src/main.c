@@ -118,6 +118,7 @@ int main (){
     while(!WindowShouldClose())
     {
         // logica
+        UpdateMusicStream(musica);
         switch (currentScreen)
         {
             case MENU:
@@ -247,13 +248,12 @@ int main (){
             case RESUME:
             {
                 if (IsKeyPressed(KEY_ESCAPE)){ 
-                    StopMusicStream(musica);
+                    ResumeMusicStream(musica);
                     currentScreen = GAMEPLAY;
                 }
                 if (IsKeyPressed(KEY_Q))
     {
-        // StopMusicStream(musicaJogo);
-        // PlayMusicStream(musicaMenu);
+        StopMusicStream(musica);
 
         currentScreen = MENU;
     }
