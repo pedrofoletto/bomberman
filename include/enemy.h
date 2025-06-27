@@ -5,7 +5,6 @@
 #include "player.h"
 #include "stdlib.h"
 
-#define MAX_BOMBAS 1
 #define CELULA 64
 #define ALTURA 15
 #define LARGURA 15

@@ -21,7 +21,8 @@ void EscreverInfo(int fase, int score, int bombas, int alcance) {
 
     DrawText(TextFormat("Fase: %02d", fase), 0, y_inicial, espaco, BLUE);
     DrawText(TextFormat("Score: %04d", score), 0, y_inicial + espaco, espaco, BLUE);
-    DrawText(TextFormat("Alcance: %d", alcance), 0, y_inicial+(espaco*2),espaco , BLUE);
+    DrawText(TextFormat("Alcance: %d", alcance), 300, y_inicial ,espaco , BLUE);
+    DrawText(TextFormat("Bombas: %d", bombas), 300, y_inicial + espaco, espaco, BLUE);
 }
 
 //lê a matriz e substitui os números por retângulos

@@ -4,7 +4,7 @@
 #include <raylib.h>
 #include <stdbool.h>
 
-#define MAX_BOMBAS 1
+#define MAX_BOMBAS 10
 #define CELULA 64
 #define ALTURA 15
 #define LARGURA 15
@@ -48,6 +48,8 @@ typedef struct {
     int cooldownbomba;
     int bombas;
     int score;
+    int alcance;
+    int bombas_colocadas;
     //fru fru de animação
     direction direcao;
     int frameAtual;
