@@ -9,12 +9,12 @@ void SalvarProgresso(const Jogador *jogador, int fase) {
     dados.score = jogador->score;
     dados.bombas = jogador->bombas;
     
-    if (jogador->listaBombas[0].state != BOMB_STATE_INACTIVE) {
-         dados.range = jogador->listaBombas[0].range;
-    } else {
-         dados.range = 2; 
-    }
-
+    //if (jogador->listaBombas[0].state != BOMB_STATE_INACTIVE) {
+    //     dados.range = jogador->listaBombas[0].range;
+    //} else {
+    //     dados.range = 2; 
+    //}
+    dados.range = jogador->alcance;
     FILE *arquivo = fopen(SAVE_FILE, "wb");
     if (arquivo == NULL) {
         perror("Erro ao abrir arquivo para slavar");
@@ -43,7 +43,7 @@ bool CarregarProgresso(Jogador *jogador, int *fase) {
     *fase = dados.fase;
     jogador->score = dados.score;
     jogador->bombas = dados.bombas;
-    
+    jogador->alcance = dados.range;
     for (int i = 0; i < MAX_BOMBAS; i++) {
         jogador->listaBombas[i].range = dados.range;
     }
@@ -52,13 +52,14 @@ bool CarregarProgresso(Jogador *jogador, int *fase) {
     return true;
 }
 bool NovoJogo(Jogador *jogador, int *fase) {
-    *fase = 1; // reinicia a fase
+    *fase = 1; 
     jogador->vida = true;
     jogador->score = 0;
-    jogador->bombas = 1; // reinicia o número de bombas
+    jogador->bombas = 1; 
+    jogador->alcance = 1;
+
     for (int i = 0; i < MAX_BOMBAS; i++) {
         jogador->listaBombas[i].state = BOMB_STATE_INACTIVE;
-        jogador->listaBombas[i].range = 2; // valor padrão
     }
     return true;
 }

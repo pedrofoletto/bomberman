@@ -285,20 +285,6 @@ int main (){
             } break;
             case GAMEPLAY:
             {
-                int alcance_atual = 2; // padrao eb
-                for (int i=0; i < MAX_BOMBAS; i++) {
-                    if (pedro.listaBombas[i].state != BOMB_STATE_INACTIVE) {
-                        alcance_atual = pedro.listaBombas[i].range;
-                        break;
-                    }
-                }
-                int bombasAtivas = 0;
-                for (int i = 0; i < MAX_BOMBAS; i++) {
-                    if (pedro.listaBombas[i].state != BOMB_STATE_INACTIVE) {
-                        bombasAtivas++;
-                    }
-                }
-                int bombasDisponiveis = pedro.bombas - bombasAtivas;
 
                 Construir(&mapa[0][0], sheet);
                 if (inimigo1.vida) DesenharInimigo(inimigo1, sheet);
@@ -306,7 +292,7 @@ int main (){
                 if (pedro.vida) DesenharPersonagem(pedro, sheet);
                 DesenhaBombas(&pedro, sheet, mapa);
                 
-                EscreverInfo(fase, pedro.score, pedro.bombas, alcance_atual);
+                EscreverInfo(fase, pedro.score, pedro.bombas, pedro.alcance);
 
             } break;
             case LEVEL_COMPLETE:

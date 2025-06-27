@@ -29,13 +29,13 @@ if(APPLE)
     target_include_directories(${PROJECT_NAME} PRIVATE ${RAYLIB_PATH}/include)
     target_link_directories(${PROJECT_NAME} PRIVATE ${RAYLIB_PATH}/lib)
 
-    target_link_libraries(${PROJECT_NAME}
+   target_link_libraries(${PROJECT_NAME}
         raylib
-        "-framework OpenGL"
-        "-framework Cocoa"
-        "-framework IOKit"
-        "-framework CoreAudio"
-        "-framework CoreVideo"
+        OpenGL
+        Cocoa
+        IOKit
+        CoreAudio
+        CoreVideo
     )
         # Copiar pasta resources para o diretório do executável
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD

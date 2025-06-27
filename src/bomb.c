@@ -11,7 +11,7 @@ void SoltaBomba(Jogador *p, int mapa[ALTURA][LARGURA]) {
             bombasAtivas++;
         }
     }
-    if (bombasAtivas > p->bombas) { //dá pra apagar??? acho que não tá usando
+    if (bombasAtivas >= p->bombas) { //dá pra apagar??? acho que não tá usando
         return; 
     }
 
@@ -21,7 +21,7 @@ void SoltaBomba(Jogador *p, int mapa[ALTURA][LARGURA]) {
             
             b->state = BOMB_STATE_TICKING;
             b->time  = GetTime();
-            b->range = 2; 
+            b->range = p->alcance; 
             
             b->x = (p->x / p->tamanho);
             b->y = (p->y / p->tamanho);
